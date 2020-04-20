@@ -1,0 +1,14 @@
+tbl_user(
+
+id varchar(10) primary key,
+password varchar(20) not null,
+picture 
+)
+
+
+
+tbl_concern(
+
+id varchar(10) primary key,
+password varchar(20) not null
+)
