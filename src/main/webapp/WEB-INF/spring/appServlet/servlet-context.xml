@@ -22,7 +22,7 @@
 	</beans:bean>
 	
 	<context:component-scan base-package="com.jgm.roujin.controller" />
-	
+	<context:component-scan base-package="com.jgm.roujin.service" />
 	
 	
 </beans:beans>
