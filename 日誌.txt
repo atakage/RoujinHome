@@ -19,3 +19,11 @@ springMVC, mysql, spring-security, hibernate, file-upload
 
 
 ログインページレイアウト
+
+
+------------------20200422--------------↓↓↓↓↓
+
+ユーザー登録サビス作成
+
+
+未解決：会員登録のときspring-securityよりPasswordEncoder暗号化作業

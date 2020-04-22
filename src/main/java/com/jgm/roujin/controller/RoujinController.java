@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.jgm.roujin.domain.UserVO;
 import com.jgm.roujin.service.UserService;
 
 import lombok.RequiredArgsConstructor;
@@ -37,8 +38,23 @@ public class RoujinController {
 	
 	
 	@ResponseBody
+	@RequestMapping(value="/joinuser", method=RequestMethod.POST)
+	public String joinUser(UserVO userVO) {
+		
+		log.debug("userVO: " + userVO.toString());
+		
+		String msg = userService.insert(userVO);
+		
+		return msg;
+	}
+	
+	
+	@ResponseBody
 	@RequestMapping(value="/idcheck", method=RequestMethod.POST)
 	public String idCheck(String id) {
+		
+		
+		log.debug("id: "+ id);
 		
 		String msg = userService.findById(id);
 		

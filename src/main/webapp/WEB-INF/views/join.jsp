@@ -63,7 +63,7 @@ $(function(){
 
 
 		if(id.length < 3 || id.length > 10){
-				$('.idWar').text('*IDを入力してくだたい(3文字以上10文字以内)')
+				$('.idWar').text('*IDは3文字以上10文字以内で入力してくだたい')
 				$('#id').focus()
 				return false
 				
@@ -73,7 +73,7 @@ $(function(){
 		$.ajax({
 
 
-			url:'${rootPath}/idcheck', data:{id:id}, method:'post',
+			url:'${rootPath}/idcheck', data:{id:id}, type:'post',
 			success:function(result){
 
 					if(result == 'exist'){
@@ -100,13 +100,97 @@ $(function(){
 			})
 		
 		})
+		
+		
+		
+	$(document).on('blur', '#password',function(){	
+
+		var password = $('#password').val().replace(/ /g,'')
+				
+
+		if(password.length < 10 || password.length > 20){
+
+			$('.passWar').text('*パスワードは10文字以上20文字以内で入力してくだたい')
+			$('#password').focus()
+			return false
+			
+
+			}
+
+		$('.passWar').text('')
+		
+	})
 	
+	
+	$(document).on('blur', '#rePassword',function(){	
+
+		var rePassword = $('#rePassword').val().replace(/ /g,'')
+		var password = $('#password').val().replace(/ /g,'')		
+
+		if(rePassword != password){
+
+			$('.rePassWar').text('*パスワードが違います')
+			return false
+			
+
+			}
+
+		$('.rePassWar').text('')
+		
+	})
 
 
 	$(document).on('click','.joinUserButton',function(){
 
+		var id = $('#id').val()
+		var password = $('#password').val()
+		var rePassword = $('#rePassword').val()
+		var picture = $("input[name='pictureSelect']:checked").val()
+		
+
+		
+		if(id.length < 1 || password.length < 1 || rePassword.length < 1 || password != rePassword ){
+
+			alert('IDまたはパスワードをもう一度確認してください')
+			return false
+
+		}
+
+
+		if(typeof picture == "undefined"){
+
+			alert('プロフィールアイコンを選択してください')
+			return false
+			
+		}
+
+
+
+
+		$.ajax({
+
+			url:'${rootPath}/joinuser', data:{id:id,password:password,picture:picture}, type:'post',
+			success:function(result){
+
+
+				if(result == 'SUCCESS'){
+					alert('登録成功')
+					document.location.replace('${rootPath}/')
+					}else{
+						alert('登録失敗')
+						return false
+						}
+
+
+				},error:function(){
+
+					alert('サーバーエラー')
+					return false
+
+					}
 
 			
+			})
 		
 		
 	})
@@ -136,14 +220,15 @@ $(function(){
 			<div>
 				<input id="password" type="password">
 			</div>
+			<a class="passWar" style="font-size: smaller;color:red;"></a>
 			
 			<br>
 			
 			<a class="inputLabel">パスワード確認</a>
 			<div>
-				<input type="password">
+				<input id="rePassword" type="password">
 			</div>
-			
+			<a class="rePassWar" style="font-size: smaller;color:red;"></a>
 			<br>
 			
 			<div>
@@ -154,11 +239,11 @@ $(function(){
 				<div style="display:flex;">
 					<div>
 					<img src="${rootPath}/resources/img/business_man1_1_smile.png" class="picture" width="100px" height="100px"><br>
-					<input name="pictureSelect" type="radio" value="1">
+					<input name="pictureSelect" type="radio" value="${rootPath}/resources/img/business_man1_1_smile.png">
 					</div>
 					<div>
 					<img src="${rootPath}/resources/img/business_woman1_1_smile.png" class="picture" width="100px" height="100px"><br>
-					<input name="pictureSelect" type="radio" value="2">
+					<input name="pictureSelect" type="radio" value="${rootPath}/resources/img/business_woman1_1_smile.png">
 					</div>
 				</div>
 			</div>
