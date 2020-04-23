@@ -4,7 +4,7 @@ Project 行くのが楽しみ
 事業者は老人ホームの登録
 利用者は老人ホームの評判などができる
 
-springMVC, mysql, spring-security, hibernate, file-upload
+springMVC, mysql, spring-security, file-upload
 
 
 
@@ -27,3 +27,9 @@ springMVC, mysql, spring-security, hibernate, file-upload
 
 
 未解決：会員登録のときspring-securityよりPasswordEncoder暗号化作業
+
+------------------20200423--------------↓↓↓↓↓
+
+security-context作成
+
+未解決：会員登録のときauthority追加、テーブルconstraints

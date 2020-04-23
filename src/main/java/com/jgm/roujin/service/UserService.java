@@ -1,9 +1,9 @@
 package com.jgm.roujin.service;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import com.jgm.roujin.domain.UserDetailsVO;
 import com.jgm.roujin.domain.UserVO;
 import com.jgm.roujin.persistence.UserDao;
 
@@ -17,12 +17,12 @@ public class UserService {
 	
 
 	private final UserDao userDao;
-	//private final PasswordEncoder passwordEncoder;
+	private final PasswordEncoder passwordEncoder;
 	
-	public String findById(String id) {
+	public String findByUserName(String username) {
 		// TODO Auto-generated method stub
 		
-		UserVO userVO = userDao.findById(id);
+		UserDetailsVO userVO = userDao.findByUserName(username);
 		
 		
 		if(userVO != null) {
@@ -33,12 +33,13 @@ public class UserService {
 		return "null";
 	}
 
-	public String insert(UserVO userVO) {
+	public String insert(UserDetailsVO userVO) {
 		// TODO Auto-generated method stub
 		
 		
-		//userVO.setPassword(passwordEncoder.encode(userVO.getPassword()));
-		userVO.setGrade("user");
+		userVO.setPassword(passwordEncoder.encode(userVO.getPassword()));
+		
+		//authority setting
 		
 		log.debug("password: " + userVO.getPassword());
 		

@@ -41,7 +41,7 @@ fieldset{
 $(function(){
 
 
-	var idCheckVal = '0'
+	
 	
 
 
@@ -63,8 +63,10 @@ $(function(){
 
 
 		if(id.length < 3 || id.length > 10){
+
+				$('.idWar').css('color', 'red')
 				$('.idWar').text('*IDは3文字以上10文字以内で入力してくだたい')
-				$('#id').focus()
+				//$('#id').focus()
 				return false
 				
 			}
@@ -73,13 +75,14 @@ $(function(){
 		$.ajax({
 
 
-			url:'${rootPath}/idcheck', data:{id:id}, type:'post',
+			url:'${rootPath}/idcheck', data:{username:id}, type:'post',
 			success:function(result){
 
 					if(result == 'exist'){
 
+						$('.idWar').css('color', 'red')
 						$('.idWar').text('*既に使用されています')
-						$('#id').focus()
+						//$('#id').focus()
 						return false
 						}else{
 							
@@ -90,7 +93,8 @@ $(function(){
 				
 				
 				},error:function(){
-					
+
+					$('.idWar').css('color', 'red')
 					$('.idWar').text('サーバーエラー')
 						return false
 					
@@ -106,18 +110,29 @@ $(function(){
 	$(document).on('blur', '#password',function(){	
 
 		var password = $('#password').val().replace(/ /g,'')
+		var rePassword = $('#rePassword').val().replace(/ /g,'')
 				
 
 		if(password.length < 10 || password.length > 20){
 
+			$('.passWar').css('color', 'red')
 			$('.passWar').text('*パスワードは10文字以上20文字以内で入力してくだたい')
-			$('#password').focus()
+			//$('#password').focus()
 			return false
 			
 
 			}
 
-		$('.passWar').text('')
+
+		if(rePassword == password){
+
+			$('.passWar').text('*チェック完了！')
+			$('.passWar').css('color', 'green')
+			$('.rePassWar').text('*チェック完了！')
+			$('.rePassWar').css('color', 'green')
+		}
+
+		//$('.passWar').text('')
 		
 	})
 	
@@ -129,13 +144,17 @@ $(function(){
 
 		if(rePassword != password){
 
+			$('.rePassWar').css('color', 'red')
 			$('.rePassWar').text('*パスワードが違います')
 			return false
 			
 
 			}
 
-		$('.rePassWar').text('')
+		$('.passWar').text('*チェック完了！')
+		$('.passWar').css('color', 'green')
+		$('.rePassWar').text('*チェック完了！')
+		$('.rePassWar').css('color', 'green')
 		
 	})
 
@@ -169,7 +188,7 @@ $(function(){
 
 		$.ajax({
 
-			url:'${rootPath}/joinuser', data:{id:id,password:password,picture:picture}, type:'post',
+			url:'${rootPath}/joinuser', data:{username:id,password:password,picture:picture}, type:'post',
 			success:function(result){
 
 
