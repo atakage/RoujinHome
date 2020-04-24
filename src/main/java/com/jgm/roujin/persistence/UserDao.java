@@ -11,7 +11,7 @@ public interface UserDao {
 	@Select("SELECT * FROM tbl_user WHERE username = #{username}")
 	UserDetailsVO findByUserName(String username);
 
-	@Insert("INSERT INTO tbl_user(username, password, picture) VALUES(#{username}, #{password}, #{picture})")
+	@Insert("INSERT INTO tbl_user(username, password, picture, enabled) VALUES(#{username}, #{password}, #{picture}, #{enabled})")
 	int insert(UserDetailsVO userVO);
 
 }

@@ -11,4 +11,6 @@ public interface AuthoritiesDao {
 	@Select("SELECT * FROM authorities WHERE username = #{username}")
 	List<AuthorityVO> findByUserName(String username);
 
+	void insert(List<AuthorityVO> authList);
+
 }

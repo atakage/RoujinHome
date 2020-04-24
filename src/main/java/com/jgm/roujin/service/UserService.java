@@ -1,10 +1,14 @@
 package com.jgm.roujin.service;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import com.jgm.roujin.domain.AuthorityVO;
 import com.jgm.roujin.domain.UserDetailsVO;
-import com.jgm.roujin.domain.UserVO;
+import com.jgm.roujin.persistence.AuthoritiesDao;
 import com.jgm.roujin.persistence.UserDao;
 
 import lombok.RequiredArgsConstructor;
@@ -17,6 +21,7 @@ public class UserService {
 	
 
 	private final UserDao userDao;
+	private final AuthoritiesDao authDao;
 	private final PasswordEncoder passwordEncoder;
 	
 	public String findByUserName(String username) {
@@ -38,12 +43,23 @@ public class UserService {
 		
 		
 		userVO.setPassword(passwordEncoder.encode(userVO.getPassword()));
+		userVO.setEnabled(true);
 		
-		//authority setting
+		
+		
 		
 		log.debug("password: " + userVO.getPassword());
 		
+		
+		//referenced テーブル
 		 int ret = userDao.insert(userVO);
+		 
+		 
+		 List<AuthorityVO> authList = new ArrayList();			
+		 authList.add(AuthorityVO.builder().username(userVO.getUsername()).authority("user").build());
+		 
+		 //Foreign Key Constraintのため参照されるデーターは後でINSERT
+		 authDao.insert(authList);
 		 
 		 if(ret < 1) {
 			 return "FAIL";

@@ -3,13 +3,15 @@ CREATE TABLE tbl_user(
 username varchar(10) primary key,
 password varchar(125) not null,
 picture varchar(255),
-grade varchar(10)
+enabled boolean
 );
-
 
 
 CREATE TABLE authorities(
 
-	username varchar(10) PRIMARY KEY,
-	authority varchar(50)
+	username varchar(10) not null,
+	authority varchar(50) unique
 );
+
+
+ALTER TABLE authorities ADD CONSTRAINT FK_USERNAME FOREIGN KEY(username) REFERENCES tbl_user(username) ON DELETE CASCADE;
