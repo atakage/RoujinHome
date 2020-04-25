@@ -75,7 +75,7 @@ $(function(){
 		$.ajax({
 
 
-			url:'${rootPath}/idcheck', data:{username:id}, type:'post',
+			url:'${rootPath}/idcheck', data:{username:id, "${_csrf.parameterName}":"${_csrf.token}"}, type:'post',
 			success:function(result){
 
 					if(result == 'exist'){
@@ -165,7 +165,12 @@ $(function(){
 		var password = $('#password').val()
 		var rePassword = $('#rePassword').val()
 		var picture = $("input[name='pictureSelect']:checked").val()
+		var conVal = $('#conVal').val()
 		
+		
+		if(conVal == 'ok'){
+			picture = 'none'
+			}
 
 		
 		if(id.length < 1 || password.length < 1 || rePassword.length < 1 || password != rePassword ){
@@ -178,8 +183,10 @@ $(function(){
 
 		if(typeof picture == "undefined"){
 
+			
 			alert('プロフィールアイコンを選択してください')
 			return false
+
 			
 		}
 
@@ -188,7 +195,7 @@ $(function(){
 
 		$.ajax({
 
-			url:'${rootPath}/joinuser', data:{username:id,password:password,picture:picture}, type:'post',
+			url:'${rootPath}/joinuser', data:{username:id,password:password,picture:picture,"${_csrf.parameterName}":"${_csrf.token}"}, type:'post',
 			success:function(result){
 
 
@@ -213,7 +220,62 @@ $(function(){
 		
 		
 	})
-	
+
+
+
+
+
+
+
+
+
+/*
+
+		$(document).on('click','.joinConcernButton',function(){
+
+		var id = $('#id').val()
+		var password = $('#password').val()
+		var rePassword = $('#rePassword').val()
+		
+
+		
+		if(id.length < 1 || password.length < 1 || rePassword.length < 1 || password != rePassword ){
+
+			alert('IDまたはパスワードをもう一度確認してください')
+			return false
+
+		}
+
+
+		
+		$.ajax({
+
+			url:'${rootPath}/joinconcern', data:{username:id,password:password,"${_csrf.parameterName}":"${_csrf.token}"}, type:'post',
+			success:function(result){
+
+
+				if(result == 'SUCCESS'){
+					alert('登録成功')
+					document.location.replace('${rootPath}/')
+					}else{
+						alert('登録失敗')
+						return false
+						}
+
+
+				},error:function(){
+
+					alert('サーバーエラー')
+					return false
+
+					}
+
+			
+			})
+		
+		
+	})
+	*/
 })
 </script>
 
@@ -266,7 +328,7 @@ $(function(){
 					</div>
 				</div>
 			</div>
-			<br>
+			<br><br>
 			<button class="joinUserButton" type="button" style="font-size: xx-large;border-color: cornflowerblue;">登録</button>
 	</fieldset>
 </form>
@@ -288,25 +350,28 @@ $(function(){
 		<legend style="width:45%;">施設関係者で登録</legend>
 			<a class="inputLabel">ID</a>
 			<div>
-				<input>
+				<input id="id" maxlength="10">
 			</div>
-			
+			<a class="idWar" style="font-size: smaller;color:red;"></a>
 			<br>
 		
 			<a class="inputLabel">パスワード</a>
 			<div>
-				<input type="password">
+				<input id="password" type="password">
 			</div>
-			
+			<a class="passWar" style="font-size: smaller;color:red;"></a>
 			<br>
 			
 			
 			<a class="inputLabel">パスワード確認</a>
 			<div>
-				<input type="password">
+				<input id="rePassword" type="password">
 			</div>
-			
+			<a class="rePassWar" style="font-size: smaller;color:red;"></a>
 			<br>
+			
+			<input id="conVal" type="hidden" value="ok">
+			<button class="joinUserButton" type="button" style="font-size: xx-large;border-color: brown;">登録</button>
 	</fieldset>
 </form>
 </div>

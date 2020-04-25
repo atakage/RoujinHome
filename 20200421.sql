@@ -14,7 +14,7 @@ enabled boolean
 select * from tbl_user;
 select * from authorities;
 
-delete from tbl_user where username = 'user';
+delete from tbl_user where username = 'user2';
 
 delete from authorities where username = 'user';
 
@@ -27,7 +27,7 @@ drop table authorities;
 CREATE TABLE authorities(
 
 	username varchar(10) not null,
-	authority varchar(50) unique
+	authority varchar(50)
 );
 
 

@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
     <meta charset="UTF-8">
-    
+<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>  
 
     
     
@@ -91,7 +91,40 @@
     height: 10%;
 
 }
-</style>    
+</style>
+
+<script>
+
+$(function(){
+
+
+	$(document).on('click','.loginButton',function(){
+
+			var username = $('#username').val().replace(/ /g,'')
+			var password = $('#password').val().replace(/ /g,'')
+
+		
+
+			if(username.length < 1){
+
+					alert('IDを入力してくだたい')
+					return false
+				}
+
+			if(password.length < 1){
+
+				alert('パスワードを入力してくだたい')
+				return false
+			}
+		
+		
+		
+		})
+
+	
+})
+
+</script>    
 
 
 <div class="container-fluid loginBoxDiv">
@@ -100,12 +133,18 @@
 アカウントをお持ち方
 </div>
 <div class="container-fluid loginContent">
-	<form class="form-group　loginForm">	
+	<form:form action="${rootPath}/login" method="post" class="form-group　loginForm">	
 		<br>	
-		<input class="form-control" placeholder="ID">
-		<input class="form-control" type="password" placeholder="パスワード">
-		<button class="btn loginButton" type="button">ログイン</button>
-	</form>
+		<input id="username" name="username" class="form-control" placeholder="ID">
+		<input id="password" name="password" class="form-control" type="password" placeholder="パスワード">
+		<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" >
+		<c:if test="${not empty SPRING_SECURITY_LAST_EXCEPTION}">
+			<div style="color:red;">
+				${SPRING_SECURITY_LAST_EXCEPTION.message}
+			</div>
+		</c:if>	
+		<button class="btn loginButton">ログイン</button>
+	</form:form>
 </div>
 
 

@@ -33,3 +33,10 @@ springMVC, mysql, spring-security, file-upload
 security-context作成
 
 未解決：会員登録のときauthority追加、テーブルconstraints
+
+
+------------------20200425--------------↓↓↓↓↓
+
+会員登録、ログインほぼ完成
+
+未解決：アカウント修正や脱退、運営者用管理ページ

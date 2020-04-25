@@ -1,5 +1,7 @@
 package com.jgm.roujin.controller;
 
+import java.security.Principal;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -32,6 +34,11 @@ public class RoujinController {
 	public UserDetailsVO newUser() {
 		return new UserDetailsVO();
 	}
+	
+	
+
+	
+	
 	
 	@RequestMapping(value="/login", method=RequestMethod.GET)
 	public String login() {
@@ -81,6 +88,18 @@ public class RoujinController {
 		
 		return "join";
 	}
+	
+	
+//	@ResponseBody
+//	@RequestMapping(value="/joinconcern", method=RequestMethod.POST)
+//	public String joinConcern(@ModelAttribute("userVO") UserDetailsVO userVO) {
+//		
+//		log.debug("userVO: " + userVO.toString());
+//		
+//		String msg = userService.insertCon(userVO);
+//		
+//		return msg;
+//	}
 	
 	@RequestMapping(value="/searchcenter", method=RequestMethod.GET)
 	public String searchCenter(Model model) {

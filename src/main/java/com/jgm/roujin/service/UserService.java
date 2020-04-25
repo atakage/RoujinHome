@@ -55,9 +55,14 @@ public class UserService {
 		 int ret = userDao.insert(userVO);
 		 
 		 
-		 List<AuthorityVO> authList = new ArrayList();			
-		 authList.add(AuthorityVO.builder().username(userVO.getUsername()).authority("user").build());
-		 
+		 List<AuthorityVO> authList = new ArrayList();
+		 if(userVO.getPicture().equals("none")) {
+			 
+			 // DBにauthority入れる時は必ずROLE_をつけてセーブ!!
+			 authList.add(AuthorityVO.builder().username(userVO.getUsername()).authority("ROLE_concern").build());
+		 }else {
+			 authList.add(AuthorityVO.builder().username(userVO.getUsername()).authority("ROLE_user").build());
+		 }
 		 //Foreign Key Constraintのため参照されるデーターは後でINSERT
 		 authDao.insert(authList);
 		 
@@ -66,5 +71,32 @@ public class UserService {
 		 }
 		return "SUCCESS";
 	}
+
+//	public String insertCon(UserDetailsVO userVO) {
+//		// TODO Auto-generated method stub
+//		userVO.setPassword(passwordEncoder.encode(userVO.getPassword()));
+//		userVO.setEnabled(true);
+//		
+//		
+//		
+//		
+//		log.debug("password: " + userVO.getPassword());
+//		
+//		
+//		//referenced テーブル
+//		 int ret = userDao.insert(userVO);
+//		 
+//		 
+//		 List<AuthorityVO> authList = new ArrayList();			
+//		 authList.add(AuthorityVO.builder().username(userVO.getUsername()).authority("concern").build());
+//		 
+//		 //Foreign Key Constraintのため参照されるデーターは後でINSERT
+//		 authDao.insert(authList);
+//		 
+//		 if(ret < 1) {
+//			 return "FAIL";
+//		 }
+//		return "SUCCESS";
+//	}
 
 }

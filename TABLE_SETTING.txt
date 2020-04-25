@@ -10,7 +10,7 @@ enabled boolean
 CREATE TABLE authorities(
 
 	username varchar(10) not null,
-	authority varchar(50) unique
+	authority varchar(50)
 );
 
 

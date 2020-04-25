@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
+<%@ taglib uri="http://www.springframework.org/security/tags" prefix="security" %>
 <c:set var="rootPath" value="${pageContext.request.contextPath}" />
 
 
@@ -105,6 +107,7 @@ header {
 
 
 
+
 </style>
 
 <script>
@@ -134,12 +137,32 @@ header {
 
 		})
 
+
+
+
+		$(document).on('click', '#logoutBtn', function(){
+
+
+			$.post('${rootPath}/logout', {"${_csrf.parameterName}":"${_csrf.token}"},
+						function(result){
+								document.location.replace('${rootPath}/')
+							}
+					)
+			
+			})
+
 	})
 </script>
 
 
 <div class="container-fluid loginDiv">
-	<a class="loginAtag" href="${rootPath}/login">ログイン</a>
+	<security:authorize access="isAnonymous()">
+		<a class="loginAtag" href="${rootPath}/login">ログイン</a>
+	</security:authorize>
+	<security:authorize access="isAuthenticated()">
+		<a style="font-weight: bold;"><security:authentication property="principal.username"/></a>さん,ようこそ!
+		<a id="logoutBtn" class="loginAtag" href="#">ログアウト</a>
+	</security:authorize>
 </div>
 
 <header class="container-fluid">
