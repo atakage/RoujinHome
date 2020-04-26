@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
+import com.jgm.roujin.domain.SalutariumVO;
 import com.jgm.roujin.domain.UserDetailsVO;
 import com.jgm.roujin.domain.UserVO;
 import com.jgm.roujin.service.UserService;
@@ -65,6 +66,20 @@ public class RoujinController {
 		
 		return msg;
 	}
+	
+	
+	
+	
+	@RequestMapping(value="/inputsal", method=RequestMethod.GET)
+	public String inputSal(Model model) {
+		
+		SalutariumVO salVO = new SalutariumVO();		
+		model.addAttribute("SALVO",salVO);
+		
+		return "input_sal";
+	}
+	
+	
 	
 	
 	@ResponseBody

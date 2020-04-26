@@ -184,6 +184,10 @@ header {
 
 		<li class="nav-item sisetsu"><a class="nav-link" href="${rootPath}/searchcenter">施設を探す</a>
 		</li>
+		
+		<security:authorize	access="hasRole('concern')">
+		<li class="nav-item"><a class="nav-link" href="${rootPath}/inputsal">施設登録</a></li>
+		</security:authorize>
 
 
 	</ul>
