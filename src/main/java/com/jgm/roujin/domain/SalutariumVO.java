@@ -2,6 +2,8 @@ package com.jgm.roujin.domain;
 
 import java.util.List;
 
+import org.springframework.web.multipart.MultipartFile;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -25,6 +27,7 @@ public class SalutariumVO {
 	private String[] feature;
 	private FeatureVO featureList;
 	private String description;
+	private MultipartFile file;
 	private String file_origin_name;
 	private String file_upload_name;
 	private long view;
