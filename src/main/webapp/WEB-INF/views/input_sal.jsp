@@ -63,15 +63,10 @@ button{
 $(function(){
 
 
-	$(document).on('click','.imgImg',function(){
-
-
-		alert($(this).attr('src'))
-		
-		})
 
 
 
+	// file
 	var sel_files = []
 	$('#input_imgs').on("change", handleImgsFilesSelect)
 	
@@ -104,11 +99,19 @@ $(function(){
 				
 				})
 
-				//alert($('#input_imgs').val()))
+			
 		}
-		
+
+
+
 
 	
+
+
+
+
+
+	$(document).on('click','.inputBtn',function(){
 
 
 
@@ -118,7 +121,59 @@ $(function(){
 			feature.push($(this).attr('src'))
 			
 			
-			})
+		})
+
+
+
+		
+
+		var name = $('#name').val().replace(/ /g,'')
+		var address = $('#address').val().replace(/ /g,'')
+		var fee = $('#fee').val()
+		var description = $('#description').val()
+		
+		
+		
+		if(name.length < 1 || name.length > 50){
+
+			alert('施設名は50文字以内で入力してくだたい')
+			$('#name').focus()
+			return false
+		}
+
+		if(address.length < 1 || address.length > 100){
+
+			alert('住所は100文字以内で入力してくだたい')
+			$('#address').focus()
+			return false
+		}
+
+		if(fee.length < 1 || fee.length > 7){
+
+			alert('入居費用を確認してください')
+			$('#fee').focus()
+			return false
+		}
+
+		if(description.length < 1 || description.length > 2000){
+
+			alert('施設紹介は2000文字以内で入力してくだたい')
+			$('#description').focus()
+			return false
+		}
+
+
+
+		// form ajax submit
+		
+
+		
+		})
+	
+
+
+
+		
 
 
 	
@@ -140,19 +195,19 @@ $(function(){
 		<form:form modelAttribute="SALVO">
 			<div>
 				<div class="title">施設名</div>
-				<form:input class="form-control" path="name" maxlength="50"/>
+				<form:input class="form-control" path="name" id="name" maxlength="50" placeholder="50文字以内"/>
 			</div>
 			<br>
 			
 			<div>
 				<div class="title">住所</div>
-				<form:input class="form-control" path="address" maxlength="100"/>
+				<form:input class="form-control" path="address" id="address" maxlength="100" placeholder="100文字以内"/>
 			</div>
 			<br>
 			
 			<div>
 				<div class="title">入居費用(月額)</div>
-				<form:input class="form-control" path="fee" maxlength="7" style="width:20%;" placeholder="円"/>
+				<form:input class="form-control" path="fee" id="fee" maxlength="7" style="width:20%;" placeholder="円" onkeyup="this.value=this.value.replace(/[^0-9]/g,'')"/>
 			</div>
 			<br>
 			
@@ -190,7 +245,7 @@ $(function(){
 			
 			<div>
 				<div class="title">施設紹介</div>
-				<form:textarea class="form-control" path="description" maxlength="2000" rows="10" cols="10"></form:textarea>
+				<form:textarea class="form-control" path="description" id="description" maxlength="2000" rows="10" cols="10" placeholder="2000文字以内"></form:textarea>
 			</div>
 			<br>
 			
@@ -203,7 +258,7 @@ $(function(){
 			</div>
 			<br>
 			
-		<button>登録</button>	
+		<button class="inputBtn">登録</button>	
 		</form:form>
 	</div>
 
