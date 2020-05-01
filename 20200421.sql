@@ -14,7 +14,7 @@ enabled boolean
 select * from tbl_user;
 select * from authorities;
 
-delete from tbl_user where username = 'user2';
+delete from tbl_user where username = 'con';
 
 delete from authorities where username = 'user';
 
@@ -37,3 +37,34 @@ INSERT INTO authorities(username,authority) VALUES('user','admin2');
 
 
 ALTER TABLE authorities ADD CONSTRAINT FK_USERNAME FOREIGN KEY(username) REFERENCES tbl_user(username) ON DELETE CASCADE;
+
+
+use roujin;
+
+
+
+CREATE TABLE tbl_salutarium(
+
+sequence bigint primary key auto_increment,
+username varchar(10) not null,
+name varchar(50) not null unique,
+address varchar(100) not null unique,
+fee int not null,
+feature varchar(255),
+description varchar(2000),
+view bigint
+
+);
+
+
+select * from tbl_salutarium;
+delete from tbl_salutarium where sequence = 1;
+
+
+CREATE TABLE tbl_file(
+
+sequence bigint primary key,
+file_code varchar(10),
+file_origin_name varchar(255),
+file_upload_name varchar(255)
+);

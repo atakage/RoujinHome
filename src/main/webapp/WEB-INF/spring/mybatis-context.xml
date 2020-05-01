@@ -12,6 +12,11 @@
 			<property name="dataSource" ref="authDB"/>
 			<property name="typeAliasesPackage" value="com.jgm.roujin.domain"/>	
 			<property name="mapperLocations" value="/WEB-INF/spring/mapper/*-mapper.xml"/>
+			<property name="configuration">
+				<bean class="org.apache.ibatis.session.Configuration">
+					<property name="jdbcTypeForNull" value="VARCHAR"/>
+				</bean>
+			</property>
 		</bean>
 		<mybatis-spring:scan base-package="com.jgm.roujin.persistence"/>
 

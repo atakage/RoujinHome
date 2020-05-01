@@ -115,10 +115,10 @@ $(function(){
 
 
 
-		var feature = new Array()
-		$('input:checkbox[name=feature]:checked').each(function(){
+		var featureArr = new Array()
+		$('input:checkbox[name=featureArr]:checked').each(function(){
 
-			feature.push($(this).attr('src'))
+			featureArr.push($(this).attr('src'))
 			
 			
 		})
@@ -237,24 +237,24 @@ $(function(){
 				<div class="title">施設の特徴</div>
 				<div class="checkBoxDiv">
 					<div class="checkBoxInnerDiv">
-					<input type="checkbox" name="feature" value="shift"/>
+					<input type="checkbox" name="featureArr" value="shift"/>
 					<label>夜間有人</label>
-					<input type="checkbox" name="feature" value="callCare"/>
+					<input type="checkbox" name="featureArr" value="callCare"/>
 					<label>訪問看護</label>
-					<input type="checkbox" name="feature" value="singleRoom"/>
+					<input type="checkbox" name="featureArr" value="singleRoom"/>
 					<label>個室あり</label>
-					<input type="checkbox" name="feature" value="nurseCall"/>
+					<input type="checkbox" name="featureArr" value="nurseCall"/>
 					<label>ナースコール</label>
 					<br>
-					<input type="checkbox" name="feature" value="bathing"/>
+					<input type="checkbox" name="featureArr" value="bathing"/>
 					<label>入浴週3回</label>
-					<input type="checkbox" name="feature" value="noSmoking"/>
+					<input type="checkbox" name="featureArr" value="noSmoking"/>
 					<label>館内禁煙</label>
-					<input type="checkbox" name="feature" value="transportation"/>
+					<input type="checkbox" name="featureArr" value="transportation"/>
 					<label>交通便利</label>
-					<input type="checkbox" name="feature" value="goOut"/>
+					<input type="checkbox" name="featureArr" value="goOut"/>
 					<label>外出自由</label>
-					<input type="checkbox" name="feature" value="drinking"/>
+					<input type="checkbox" name="featureArr" value="drinking"/>
 					<label>アルコール可</label>	
 					</div>
 					

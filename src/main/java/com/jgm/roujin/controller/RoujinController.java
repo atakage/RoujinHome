@@ -17,6 +17,7 @@ import com.jgm.roujin.domain.FileVO;
 import com.jgm.roujin.domain.SalutariumVO;
 import com.jgm.roujin.domain.UserDetailsVO;
 import com.jgm.roujin.service.FileService;
+import com.jgm.roujin.service.SalutariumService;
 import com.jgm.roujin.service.UserService;
 
 import lombok.RequiredArgsConstructor;
@@ -33,6 +34,7 @@ public class RoujinController {
 
 	private final UserService userService;
 	private final FileService fileService;
+	private final SalutariumService salService;
 	
 	
 	@ModelAttribute("userVO")
@@ -91,22 +93,19 @@ public class RoujinController {
 	@RequestMapping(value="/inputsal", method=RequestMethod.POST)
 	public String inputSal(SalutariumVO salutariumVO, MultipartHttpServletRequest file, Principal principal) {
 		
-		salutariumVO.setUsername(principal.getName());
+		
+		long sequence = salService.insertSal(salutariumVO, principal);
+		
+	
 		
 		
-		for(MultipartFile  mFile : file.getFiles("file")) {
-			
-			log.debug("FILENAME: " + mFile.getOriginalFilename());
-			
-		}
+		List<FileVO> fileList = fileService.filesUp(file,sequence);
 		
-		
-		List<FileVO> fileList = fileService.filesUp(salutariumVO, file);
 		
 		
 		log.debug("salutariumVO: " + salutariumVO.toString());
 		log.debug("FILE: " + file.toString());
-		log.debug(principal.toString());
+
 		
 		return "nu";
 	}
@@ -137,16 +136,7 @@ public class RoujinController {
 	}
 	
 	
-//	@ResponseBody
-//	@RequestMapping(value="/joinconcern", method=RequestMethod.POST)
-//	public String joinConcern(@ModelAttribute("userVO") UserDetailsVO userVO) {
-//		
-//		log.debug("userVO: " + userVO.toString());
-//		
-//		String msg = userService.insertCon(userVO);
-//		
-//		return msg;
-//	}
+
 	
 	@RequestMapping(value="/searchcenter", method=RequestMethod.GET)
 	public String searchCenter(Model model) {

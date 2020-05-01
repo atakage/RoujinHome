@@ -52,7 +52,7 @@ security-context作成
 
 ------------------20200501--------------↓↓↓↓↓
 
-施設登録ページ作成中
-意外と厄介な作業が多い
+ファイルアップロードがとてもむずい
+insertさえも進まない
 
 未解決：アカウント修正や脱退、マイページ、 運営者用管理ページ, spring security inputsal submit post csrf invalid token,

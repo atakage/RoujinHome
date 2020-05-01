@@ -15,3 +15,31 @@ CREATE TABLE authorities(
 
 
 ALTER TABLE authorities ADD CONSTRAINT FK_USERNAME FOREIGN KEY(username) REFERENCES tbl_user(username) ON DELETE CASCADE;
+
+
+
+
+CREATE TABLE tbl_salutarium(
+
+sequence bigint primary key auto_increment,
+username varchar(10) not null,
+name varchar(50) not null unique,
+address varchar(100) not null unique,
+fee int not null,
+feature varchar(255),
+description varchar(2000),
+view bigint
+
+);
+
+
+CREATE TABLE tbl_file(
+
+sequence bigint primary key,
+file_code varchar(10),
+file_origin_name varchar(255),
+file_upload_name varchar(255)
+);
+
+
+ALTER table tbl_file add constraint FK_FILE_SEQ foreign key(sequence) REFERENCES tbl_salutarium(sequence) ON delete cascade;

@@ -22,11 +22,15 @@ public class FileService {
 	@Autowired
 	String winFilePath;
 
-	public List<FileVO> filesUp(SalutariumVO salutariumVO, MultipartHttpServletRequest file) {
+	public List<FileVO> filesUp(MultipartHttpServletRequest file, long sequence) {
 		// TODO Auto-generated method stub
 		
 		if(file.getFile("file").getSize() < 1) return null;
 		List<FileVO> fileList = new ArrayList<FileVO>();
+		
+		
+		//  findby file_code(max) 
+		
 		
 		try {
 			
@@ -35,9 +39,13 @@ public class FileService {
 				// originalName + UUID
 				String upFileName = this.fileUp(mFile);
 				
+				// create file_code
+				
+				
+				
 				
 				FileVO vo = FileVO.builder().file_origin_name(mFile.getOriginalFilename()).
-						file_upload_name(upFileName).build();
+						file_upload_name(upFileName).sequence(sequence).build();
 				
 				log.debug("FILEVO: " + vo.toString());
 				

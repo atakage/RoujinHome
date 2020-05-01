@@ -15,7 +15,8 @@ import lombok.ToString;
 @Builder
 public class FileVO {
 
-	
+	private long sequence;
+	private String file_code;
 	private String file_origin_name;
 	private String file_upload_name;
 }
