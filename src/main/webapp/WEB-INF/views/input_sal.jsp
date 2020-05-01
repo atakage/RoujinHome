@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
-
+<%@ taglib uri="http://www.springframework.org/security/tags" prefix="security" %>
     
     
     
@@ -163,11 +163,28 @@ $(function(){
 		}
 
 
+		$('form').submit()
+		
 
-		// form ajax submit
+/*
+		var salutarium = $('form').serialize()
 		
 
 		
+		alert(salutarium)
+	
+		$.ajax({
+
+			url:"${rootPath}/inputsal", data:{salutariumVO:salutarium,"${_csrf.parameterName}":"${_csrf.token}"}, enctype:'multipart/form-data', processData:false, contentType:false, type:'post',
+			success:function(result){
+					
+				},error:function(){
+					alert('サーバーエラー')					
+					}
+
+			})
+
+*/		
 		})
 	
 
@@ -192,22 +209,27 @@ $(function(){
 	<div class="head">施設登録</div>
 
 	<div class="form-group inputBox">
-		<form:form modelAttribute="SALVO">
+		<form method="post" enctype="multipart/form-data">
+		
+			
+			<input type="hidden" name="${_csrf.parameterName }" value="${_csrf.token }">
+			
+			
 			<div>
 				<div class="title">施設名</div>
-				<form:input class="form-control" path="name" id="name" maxlength="50" placeholder="50文字以内"/>
+				<input class="form-control" name="name" id="name" maxlength="50" placeholder="50文字以内"/>
 			</div>
 			<br>
 			
 			<div>
 				<div class="title">住所</div>
-				<form:input class="form-control" path="address" id="address" maxlength="100" placeholder="100文字以内"/>
+				<input class="form-control" name="address" id="address" maxlength="100" placeholder="100文字以内"/>
 			</div>
 			<br>
 			
 			<div>
 				<div class="title">入居費用(月額)</div>
-				<form:input class="form-control" path="fee" id="fee" maxlength="7" style="width:20%;" placeholder="円" onkeyup="this.value=this.value.replace(/[^0-9]/g,'')"/>
+				<input class="form-control" name="fee" id="fee" maxlength="7" style="width:20%;" placeholder="円" onkeyup="this.value=this.value.replace(/[^0-9]/g,'')"/>
 			</div>
 			<br>
 			
@@ -215,24 +237,24 @@ $(function(){
 				<div class="title">施設の特徴</div>
 				<div class="checkBoxDiv">
 					<div class="checkBoxInnerDiv">
-					<form:checkbox  path="feature" value="shift"/>
+					<input type="checkbox" name="feature" value="shift"/>
 					<label>夜間有人</label>
-					<form:checkbox  path="feature" value="callCare"/>
+					<input type="checkbox" name="feature" value="callCare"/>
 					<label>訪問看護</label>
-					<form:checkbox  path="feature" value="singleRoom"/>
+					<input type="checkbox" name="feature" value="singleRoom"/>
 					<label>個室あり</label>
-					<form:checkbox  path="feature" value="nurseCall"/>
+					<input type="checkbox" name="feature" value="nurseCall"/>
 					<label>ナースコール</label>
 					<br>
-					<form:checkbox  path="feature" value="bathing"/>
+					<input type="checkbox" name="feature" value="bathing"/>
 					<label>入浴週3回</label>
-					<form:checkbox  path="feature" value="noSmoking"/>
+					<input type="checkbox" name="feature" value="noSmoking"/>
 					<label>館内禁煙</label>
-					<form:checkbox  path="feature" value="transportation"/>
+					<input type="checkbox" name="feature" value="transportation"/>
 					<label>交通便利</label>
-					<form:checkbox  path="feature" value="goOut"/>
+					<input type="checkbox" name="feature" value="goOut"/>
 					<label>外出自由</label>
-					<form:checkbox  path="feature" value="drinking"/>
+					<input type="checkbox" name="feature" value="drinking"/>
 					<label>アルコール可</label>	
 					</div>
 					
@@ -245,21 +267,21 @@ $(function(){
 			
 			<div>
 				<div class="title">施設紹介</div>
-				<form:textarea class="form-control" path="description" id="description" maxlength="2000" rows="10" cols="10" placeholder="2000文字以内"></form:textarea>
+				<textarea class="form-control" name="description" id="description" maxlength="2000" rows="10" cols="10" placeholder="2000文字以内"></textarea>
 			</div>
 			<br>
 			
 			<div>
 				<div class="title">施設の写真</div>
-				<form:input id="input_imgs" type="file" path="file" multiple="multiple"/>
+				<input id="input_imgs" type="file" name="file" multiple="multiple"/>
 				
 				<div class="Thumbnail imgs_wrap">
 				</div>
 			</div>
 			<br>
 			
-		<button class="inputBtn">登録</button>	
-		</form:form>
+		<button class="inputBtn" type="button">登録</button>	
+		</form>
 	</div>
 
 </body>

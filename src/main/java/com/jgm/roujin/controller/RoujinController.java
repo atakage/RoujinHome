@@ -1,8 +1,8 @@
 package com.jgm.roujin.controller;
 
 import java.security.Principal;
+import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -10,10 +10,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 
+import com.jgm.roujin.domain.FileVO;
 import com.jgm.roujin.domain.SalutariumVO;
 import com.jgm.roujin.domain.UserDetailsVO;
-import com.jgm.roujin.domain.UserVO;
+import com.jgm.roujin.service.FileService;
 import com.jgm.roujin.service.UserService;
 
 import lombok.RequiredArgsConstructor;
@@ -27,8 +30,9 @@ import lombok.extern.slf4j.Slf4j;
 @Controller
 public class RoujinController {
 	
-	@Autowired
+
 	private final UserService userService;
+	private final FileService fileService;
 	
 	
 	@ModelAttribute("userVO")
@@ -77,6 +81,34 @@ public class RoujinController {
 		model.addAttribute("SALVO",salVO);
 		
 		return "input_sal";
+	}
+	
+	
+	
+	/*
+	 * MultipartHttpServletRequestは分けて受ける
+	 */
+	@RequestMapping(value="/inputsal", method=RequestMethod.POST)
+	public String inputSal(SalutariumVO salutariumVO, MultipartHttpServletRequest file, Principal principal) {
+		
+		salutariumVO.setUsername(principal.getName());
+		
+		
+		for(MultipartFile  mFile : file.getFiles("file")) {
+			
+			log.debug("FILENAME: " + mFile.getOriginalFilename());
+			
+		}
+		
+		
+		List<FileVO> fileList = fileService.filesUp(salutariumVO, file);
+		
+		
+		log.debug("salutariumVO: " + salutariumVO.toString());
+		log.debug("FILE: " + file.toString());
+		log.debug(principal.toString());
+		
+		return "nu";
 	}
 	
 	
