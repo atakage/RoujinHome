@@ -58,13 +58,22 @@ view bigint
 
 
 select * from tbl_salutarium;
-delete from tbl_salutarium where sequence = 1;
+select * from tbl_file;
 
+delete from tbl_salutarium where sequence = 1;
+delete from tbl_salutarium;
+delete from tbl_file;
+
+drop table tbl_file;
+
+use roujin;
 
 CREATE TABLE tbl_file(
 
-sequence bigint primary key,
-file_code varchar(10),
+sequence bigint not null,
+file_code varchar(10) not null unique,
 file_origin_name varchar(255),
 file_upload_name varchar(255)
 );
+
+ALTER table tbl_file add constraint FK_FILE_SEQ foreign key(sequence) REFERENCES tbl_salutarium(sequence) ON delete cascade;

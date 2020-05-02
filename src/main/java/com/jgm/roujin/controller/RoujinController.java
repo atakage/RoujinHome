@@ -47,6 +47,13 @@ public class RoujinController {
 	
 	
 	
+	@RequestMapping(value="/view", method=RequestMethod.GET)
+	public String view() {
+		return "view";
+	}
+	
+	
+	
 	@RequestMapping(value="/login", method=RequestMethod.GET)
 	public String login() {
 		
@@ -93,6 +100,10 @@ public class RoujinController {
 	@RequestMapping(value="/inputsal", method=RequestMethod.POST)
 	public String inputSal(SalutariumVO salutariumVO, MultipartHttpServletRequest file, Principal principal) {
 		
+		log.debug("salutariumVO: " + salutariumVO.toString());
+		log.debug("FILE: " + file.toString());
+
+		
 		
 		long sequence = salService.insertSal(salutariumVO, principal);
 		
@@ -102,12 +113,15 @@ public class RoujinController {
 		List<FileVO> fileList = fileService.filesUp(file,sequence);
 		
 		
+		if(fileList != null) {
+		log.debug("FILELIST: " + fileList.toString());
+		fileService.insert(fileList);
+		}
 		
-		log.debug("salutariumVO: " + salutariumVO.toString());
-		log.debug("FILE: " + file.toString());
+		
 
 		
-		return "nu";
+		return "redirect:/";
 	}
 	
 	

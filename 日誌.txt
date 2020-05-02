@@ -56,3 +56,13 @@ security-context作成
 insertさえも進まない
 
 未解決：アカウント修正や脱退、マイページ、 運営者用管理ページ, spring security inputsal submit post csrf invalid token,
+
+
+
+
+------------------20200502--------------↓↓↓↓↓
+
+
+
+未解決：アカウント修正や脱退、マイページ、 運営者用管理ページ, spring security inputsal submit post csrf invalid token,
+input_sal ページ　バリデーションチェック（施設名、住所）

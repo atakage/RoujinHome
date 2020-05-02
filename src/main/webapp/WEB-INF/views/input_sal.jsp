@@ -65,6 +65,40 @@ $(function(){
 
 
 
+	$('#todohuken').change(function(){
+
+		var todohuken = $('#todohuken option:selected').val()
+		
+
+		if(todohuken == '北海道'){
+
+				$('#sikuchouson option').remove()
+				$('#sikuchouson').append("<option value='札幌市'>札幌市</option>")
+				$('#sikuchouson').append("<option value='根室市'>根室市</option>")
+
+		}else if(todohuken == '東京都'){
+
+
+			$('#sikuchouson option').remove()
+			$('#sikuchouson').append("<option value='小平市'>小平市</option>")
+			$('#sikuchouson').append("<option value='町田市'>町田市</option>")
+
+		}
+		
+		})
+
+
+
+
+
+
+
+
+	
+
+
+
+
 
 	// file
 	var sel_files = []
@@ -113,6 +147,10 @@ $(function(){
 
 	$(document).on('click','.inputBtn',function(){
 
+		
+
+
+		
 
 
 		var featureArr = new Array()
@@ -125,7 +163,6 @@ $(function(){
 
 
 
-		
 
 		var name = $('#name').val().replace(/ /g,'')
 		var address = $('#address').val().replace(/ /g,'')
@@ -163,28 +200,14 @@ $(function(){
 		}
 
 
+
+		var addressPlus = $('#todohuken option:selected').val() + "," + $('#sikuchouson option:selected').val() + "," + $('#address').val().replace(/ /g,'')	
+		$('#address').val(addressPlus)
+		
+
 		$('form').submit()
 		
-
-/*
-		var salutarium = $('form').serialize()
-		
-
-		
-		alert(salutarium)
 	
-		$.ajax({
-
-			url:"${rootPath}/inputsal", data:{salutariumVO:salutarium,"${_csrf.parameterName}":"${_csrf.token}"}, enctype:'multipart/form-data', processData:false, contentType:false, type:'post',
-			success:function(result){
-					
-				},error:function(){
-					alert('サーバーエラー')					
-					}
-
-			})
-
-*/		
 		})
 	
 
@@ -223,6 +246,16 @@ $(function(){
 			
 			<div>
 				<div class="title">住所</div>
+				<div>
+					<select id="todohuken">
+						<option value="北海道">北海道</option>
+						<option value="東京都">東京都</option>
+					</select>
+					<select id="sikuchouson">
+						<option value='札幌市'>札幌市</option>
+						<option value='根室市'>根室市</option>
+					</select>
+				</div>
 				<input class="form-control" name="address" id="address" maxlength="100" placeholder="100文字以内"/>
 			</div>
 			<br>
@@ -273,7 +306,7 @@ $(function(){
 			
 			<div>
 				<div class="title">施設の写真</div>
-				<input id="input_imgs" type="file" name="file" multiple="multiple"/>
+				<input id="input_imgs" type="file" name="file" multiple="multiple" accept="image/*"/>
 				
 				<div class="Thumbnail imgs_wrap">
 				</div>
