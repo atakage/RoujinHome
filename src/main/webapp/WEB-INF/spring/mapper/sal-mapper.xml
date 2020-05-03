@@ -9,8 +9,8 @@
 
 	<insert id="insertSal" parameterType="salutariumVO" useGeneratedKeys="true" keyProperty="sequence">
 	
-		INSERT INTO tbl_salutarium(username,name,address,fee,description,feature) 
-		VALUES(#{username},#{name},#{address},#{fee},#{description},#{feature})
+		INSERT INTO tbl_salutarium(username,name,address,fee,description,feature,view) 
+		VALUES(#{username},#{name},#{address},#{fee},#{description},#{feature},#{view})
 	
 	</insert>
 	

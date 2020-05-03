@@ -55,7 +55,6 @@
 
 .subImgBoxDiv{
 	width:50%;
-	border:1px solid black;
 	margin-bottom:3%;
 	
 }
@@ -100,6 +99,14 @@
 	cursor: help;
 }
 
+.subImg{
+	border: 2px solid white;
+}
+
+.subImg:hover{
+	cursor: pointer;
+}
+
 
 
 
@@ -116,6 +123,30 @@
 
 
 $(function(){
+
+
+
+	$('.subImgBoxDiv .subImg:first-child').css('border-color','limegreen')
+
+	
+	
+	$(document).on('click','.subImg',function(){
+
+
+			$(this).siblings().css('border-color','white')
+			$(this).css('border-color','limegreen')
+			
+			
+			
+			$('.mainImg').attr('src', $(this).attr('src'))
+		})
+
+
+
+
+
+
+	
 
 
 	// div sizeに合わせて文字のサイズを自動設定(library)
@@ -171,7 +202,12 @@ $(function(){
 	</div>
 	
 	<div class="imgAndFeeAddrBoxDiv">
-		<div id="img"><img class="img-thumbnail" style="border: none;" width="500" height="400" src="${rootPath }/resources/img/header_image.png"></div>
+		<c:if test="${not empty FILELIST}">
+		<div id="img"><img class="img-thumbnail mainImg" style="border: none;" width="500" height="400" src="${rootPath}/files/${FILELIST[0].file_upload_name}"></div>
+		</c:if>
+		<c:if test="${empty FILELIST}">
+		<div id="img"><img class="img-thumbnail mainImg" style="border: none;" width="500" height="400" src="${rootPath}/resources/img/no-image.png"></div>
+		</c:if>
 		<div class="feeAndAddrBoxDiv">
 			<div style="line-height: 3;">
 			<div style="font-size: larger;font-weight: bold;">費用(月額)</div>
@@ -186,6 +222,13 @@ $(function(){
 	
 	<div class="subImgBoxDiv">
 	
+	<c:if test="${not empty FILELIST}">
+	
+		<c:forEach items="${FILELIST}" var="fileList">
+			<img class="img-thumbnail subImg" width="50" height="50" src="${rootPath}/files/${fileList.file_upload_name}">
+		</c:forEach>
+	
+	</c:if>
 		
 	
 	</div>
@@ -210,7 +253,7 @@ $(function(){
 		
 		</c:if>
 		
-		<div style="font-size:larger; font-weight:bold;"><pre>${SALVO.description}</pre></div>
+		<div style="font-size:larger; font-weight:bold;"><pre style="white-space: pre-wrap;">${SALVO.description}</pre></div>
 	</div>
 	
 	

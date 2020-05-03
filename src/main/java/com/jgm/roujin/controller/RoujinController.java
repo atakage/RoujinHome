@@ -52,8 +52,15 @@ public class RoujinController {
 	public String view(@RequestParam("sequence") String sequence, Model model) {
 		
 		SalutariumVO salVO = salService.findBySeq(Long.valueOf(sequence));
+		salService.countView(Long.valueOf(sequence));
+		
+		List<FileVO> fileList = fileService.findBySeq(Long.valueOf(sequence));
+		
+		
+		
 		
 		model.addAttribute("SALVO", salVO);
+		model.addAttribute("FILELIST", fileList);
 		
 		return "view";
 	}

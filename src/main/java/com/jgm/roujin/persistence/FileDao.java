@@ -15,5 +15,8 @@ public interface FileDao {
 
 	void insert(@Param("fileList") List<FileVO> fileList);
 
+	@Select("SELECT * FROM tbl_file WHERE sequence = #{sequence}")
+	List<FileVO> findBySeq(Long sequence);
+
 	
 }

@@ -148,6 +148,14 @@ public class FileService {
 	}
 
 
+	public List<FileVO> findBySeq(Long sequence) {
+		// TODO Auto-generated method stub
+		
+		
+		return fileDao.findBySeq(sequence);
+	}
+
+
 	
 
 	

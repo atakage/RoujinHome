@@ -42,6 +42,7 @@ public class SalutariumService {
 			e.printStackTrace();
 		}
 		
+		salutariumVO.setView(0);
 		
 		 int ret = salDao.insertSal(salutariumVO); 
 		 
@@ -75,6 +76,13 @@ public class SalutariumService {
 		log.debug("SALVO: " + salVO.toString());
 		
 		return salVO;
+	}
+
+	public void countView(Long sequence) {
+		// TODO Auto-generated method stub
+		
+		salDao.countView(sequence);
+		
 	}
 
 }
