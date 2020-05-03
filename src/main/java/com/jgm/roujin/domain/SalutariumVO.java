@@ -24,12 +24,10 @@ public class SalutariumVO {
 	private String username;
 	private String name;
 	private String address;
+	private String[] addressArr;
 	private long fee;
-	private String[] featureArr;
 	private String feature;
-	//private FeatureVO featureList;
+	private String[] featureArr;
 	private String description;
-	//private String file_origin_name;
-	//private String file_upload_name;
 	private long view;
 }

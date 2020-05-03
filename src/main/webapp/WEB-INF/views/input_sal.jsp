@@ -156,7 +156,7 @@ $(function(){
 		var featureArr = new Array()
 		$('input:checkbox[name=featureArr]:checked').each(function(){
 
-			featureArr.push($(this).attr('src'))
+			featureArr.push($(this).attr('value'))
 			
 			
 		})
@@ -270,24 +270,24 @@ $(function(){
 				<div class="title">施設の特徴</div>
 				<div class="checkBoxDiv">
 					<div class="checkBoxInnerDiv">
-					<input type="checkbox" name="featureArr" value="shift"/>
+					<input type="checkbox" name="featureArr" value="夜間有人"/>
 					<label>夜間有人</label>
-					<input type="checkbox" name="featureArr" value="callCare"/>
+					<input type="checkbox" name="featureArr" value="訪問看護"/>
 					<label>訪問看護</label>
-					<input type="checkbox" name="featureArr" value="singleRoom"/>
+					<input type="checkbox" name="featureArr" value="個室あり"/>
 					<label>個室あり</label>
-					<input type="checkbox" name="featureArr" value="nurseCall"/>
+					<input type="checkbox" name="featureArr" value="ナースコール"/>
 					<label>ナースコール</label>
 					<br>
-					<input type="checkbox" name="featureArr" value="bathing"/>
+					<input type="checkbox" name="featureArr" value="入浴週3回"/>
 					<label>入浴週3回</label>
-					<input type="checkbox" name="featureArr" value="noSmoking"/>
+					<input type="checkbox" name="featureArr" value="館内禁煙"/>
 					<label>館内禁煙</label>
-					<input type="checkbox" name="featureArr" value="transportation"/>
+					<input type="checkbox" name="featureArr" value="交通便利"/>
 					<label>交通便利</label>
-					<input type="checkbox" name="featureArr" value="goOut"/>
+					<input type="checkbox" name="featureArr" value="外出自由"/>
 					<label>外出自由</label>
-					<input type="checkbox" name="featureArr" value="drinking"/>
+					<input type="checkbox" name="featureArr" value="アルコール可"/>
 					<label>アルコール可</label>	
 					</div>
 					

@@ -7,7 +7,7 @@
        
 <%@ include file="/WEB-INF/views/include/include-headernav.jsp" %>
 
-
+<script src="https://cdnjs.cloudflare.com/ajax/libs/textfit/2.4.0/textFit.min.js" integrity="sha256-FVX67V27BmQoXxFOU8Jx4+C9fDK6FLl4k/j5UhSsC88=" crossorigin="anonymous"></script>
 
 <style>
 
@@ -81,19 +81,93 @@
     color: white;
     padding: 5px;
     border-radius: 10px;
-    margin-bottom:2%;
+    margin-bottom:3%;
 }
+
+.featureContent{
+	width: 50px;
+    height: 50px;
+    font-weight: 900;
+ 
+    text-align: center;
+    color: yellowgreen;
+    border: 3px solid yellowgreen;
+    margin: 2px;
+    border-radius: 10px;
+}
+
+.featureContent:hover{
+	cursor: help;
+}
+
+
 
 
 </style>
 
 
 
+
+
+
+
+
+<script>
+
+
+$(function(){
+
+
+	// div sizeに合わせて文字のサイズを自動設定(library)
+	textFit($('.featureContent'))
+	
+	$('[data-toggle="tooltip"]').tooltip()
+	
+	
+	
+	
+	
+	$('.featureContent').each(function(index){ 
+
+
+		
+		if($(this).text().trim() == '夜間有人'){
+			$(this).attr('data-original-title','夜もスタッフが常駐している施設')
+
+		
+		}else if($(this).text().trim() == '訪問看護'){
+			$(this).attr('data-original-title','訪問看護を利用できる施設')
+		}else if($(this).text().trim() == '個室あり'){
+			$(this).attr('data-original-title','個室がある施設')
+		}else if($(this).text().trim() == 'ナースコール'){
+			$(this).attr('data-original-title','居室内に緊急通報装置、ナースコールが設置された施設')
+		}else if($(this).text().trim() == '入浴週3回'){
+			$(this).attr('data-original-title','週3回以上入浴できる施設')
+		}else if($(this).text().trim() == '館内禁煙'){
+			$(this).attr('data-original-title','館内では禁煙が明示された施設')
+		}else if($(this).text().trim() == '交通便利'){
+			$(this).attr('data-original-title','駅から徒歩圏内の交通が便利な施設')
+		}else if($(this).text().trim() == '外出自由'){
+			$(this).attr('data-original-title','外出が自由な施設')
+		}else if($(this).text().trim() == 'アルコール可'){
+			$(this).attr('data-original-title','アルコール飲料が許可されている施設')
+		}
+			
+		
+		})
+		
+})
+
+
+</script>
+
+
+
 <div class="topBoxDiv">
 
 	<div class="nameAndviewBoxDiv">
-		<div id="name">NAMEmargin-top:3%;margin-top:3%;</div>
-		<div id="view">5123view</div>
+		<div id="name">${SALVO.name}</div>
+		<div id="view">${SALVO.view}view</div>
 	</div>
 	
 	<div class="imgAndFeeAddrBoxDiv">
@@ -101,9 +175,9 @@
 		<div class="feeAndAddrBoxDiv">
 			<div style="line-height: 3;">
 			<div style="font-size: larger;font-weight: bold;">費用(月額)</div>
-			<div id="fee">400000円</div>
+			<div id="fee">${SALVO.fee}円</div>
 			<div style="font-size: larger;font-weight: bold;">住所</div>
-			<div id="address">sadfsafeefjefefefjefefeffewfjefefeffewfwefefewfewfewf</div>
+			<div id="address">${SALVO.address}</div>
 			</div>
 		</div>
 	
@@ -124,13 +198,27 @@
 <div class="bottomBoxDiv">
 	
 	<div class="featureBoxDiv">
-		<div class="titleDiv">~~~~~~~~の特徴</div>
-		<div>asd asd asd asd asd asd asd asd asdasd</div>
-		<div>description</div>
+		<div class="titleDiv">${SALVO.name}の特徴</div>
+		
+		<c:if test="${SALVO.featureArr[0] != 'null'}">
+		
+		<div style="display:flex; margin-bottom: 5%;">
+			<c:forEach items="${SALVO.featureArr}" var="featureArr" >	
+			<div class="featureContent" data-toggle="tooltip">${featureArr}</div>
+			</c:forEach>
+		</div>
+		
+		</c:if>
+		
+		<div style="font-size:larger; font-weight:bold;"><pre>${SALVO.description}</pre></div>
 	</div>
 	
 	
 	
-	
+<script>
+
+
+
+</script>	
 	
 </div>

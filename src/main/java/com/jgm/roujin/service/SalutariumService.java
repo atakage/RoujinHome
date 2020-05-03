@@ -52,4 +52,29 @@ public class SalutariumService {
 		
 	}
 
+	public SalutariumVO findBySeq(Long sequence) {
+		// TODO Auto-generated method stub
+		
+		
+		SalutariumVO salVO =  salDao.findBySeq(sequence);
+		
+		
+		
+		// address分類
+		
+		salVO.setAddressArr(salVO.getAddress().split(","));
+		salVO.setAddress(salVO.getAddress().replace(",", " "));
+		
+		// feature分類
+		
+		String featureDB = salVO.getFeature().replace("[", "");
+		featureDB = featureDB.replace("]", "");
+		salVO.setFeatureArr(featureDB.split(","));
+		
+		
+		log.debug("SALVO: " + salVO.toString());
+		
+		return salVO;
+	}
+
 }
