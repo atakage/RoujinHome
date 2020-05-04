@@ -1,5 +1,6 @@
 package com.jgm.roujin.controller;
 
+import java.io.UnsupportedEncodingException;
 import java.security.Principal;
 import java.util.List;
 
@@ -167,6 +168,44 @@ public class RoujinController {
 	
 	@RequestMapping(value="/searchcenter", method=RequestMethod.GET)
 	public String searchCenter(Model model) {
+		
+		List<SalutariumVO> salList =  salService.selectAll();
+		List<FileVO> fileList = fileService.findBySalList();
+		
+		model.addAttribute("SALLIST", salList);
+		
+		return "search_main";
+	}
+	
+	
+	
+	
+	@RequestMapping(value="/searchcenter", method=RequestMethod.POST)
+	public String searchCenter(String todohuken, String sikuchouson, Model model) {
+		
+		
+		// post submitのとき文字化けのため
+		if(todohuken.equals("hokkaido")) {
+			todohuken = "北海道";
+		}else if(todohuken.equals("tokyo")) {
+			todohuken = "東京都";
+		}
+		
+		if(sikuchouson.equals("sapporo")) {
+			sikuchouson = "札幌市";
+		}else if(sikuchouson.equals("nemuro")) {
+			sikuchouson = "根室市";
+		}else if(sikuchouson.equals("kodaira")) {
+			sikuchouson = "小平市";
+		}else if(sikuchouson.equals("machida")) {
+			sikuchouson = "町田市";
+		}
+		
+		List<SalutariumVO> salList = salService.findByAddress(todohuken, sikuchouson);
+		int resultCount = salList.size();
+		
+		model.addAttribute("RESULTCOUNT", resultCount);
+		model.addAttribute("SALLIST", salList);
 		
 		
 		return "search_main";

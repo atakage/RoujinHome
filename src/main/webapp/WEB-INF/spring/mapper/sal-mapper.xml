@@ -6,6 +6,12 @@
  <mapper namespace="com.jgm.roujin.persistence.SalutariumDao">
 
 
+	<select id="findByAddress" resultType="salutariumVO">
+	
+		SELECT * FROM tbl_salutarium WHERE address LIKE CONCAT('%',#{todohuken},'%') AND address LIKE CONCAT('%',#{sikuchouson},'%')
+	
+	</select>
+
 
 	<insert id="insertSal" parameterType="salutariumVO" useGeneratedKeys="true" keyProperty="sequence">
 	

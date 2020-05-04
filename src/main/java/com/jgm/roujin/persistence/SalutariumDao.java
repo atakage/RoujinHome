@@ -2,6 +2,7 @@ package com.jgm.roujin.persistence;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
 
@@ -21,5 +22,11 @@ public interface SalutariumDao {
 
 	@Update("UPDATE tbl_salutarium SET view = view+1 WHERE sequence = #{sequence}")
 	void countView(Long sequence);
+
+
+	List<SalutariumVO> findByAddress(@Param("todohuken") String todohuken, @Param("sikuchouson")String sikuchouson);
+
+	@Select("SELECT * FROM tbl_salutarium")
+	List<SalutariumVO> selectAll();
 
 }

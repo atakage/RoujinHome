@@ -85,4 +85,16 @@ public class SalutariumService {
 		
 	}
 
+	public List<SalutariumVO> findByAddress(String todohuken, String sikuchouson) {
+		// TODO Auto-generated method stub
+		
+		
+		return salDao.findByAddress(todohuken,sikuchouson);
+	}
+
+	public List<SalutariumVO> selectAll() {
+		// TODO Auto-generated method stub
+		return salDao.selectAll();
+	}
+
 }
