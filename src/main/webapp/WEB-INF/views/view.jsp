@@ -28,13 +28,16 @@
 }
 
 #name{
-	width:80%;
+	width:50%;
 	font-size: x-large;
 	font-weight: bold;
+	padding-left: 30px;
 }
 
 #view{
 	font-size: x-large;
+	width:50%;
+	text-align: center;
 }
 
 .imgAndFeeAddrBoxDiv{
@@ -44,6 +47,7 @@
 
 #img{
 	width:50%;
+	text-align: center;
 
 }
 
@@ -56,6 +60,7 @@
 .subImgBoxDiv{
 	width:50%;
 	margin-bottom:3%;
+	text-align: center;
 	
 }
 
@@ -107,7 +112,10 @@
 	cursor: pointer;
 }
 
-
+.mainImg{
+	max-width: 100%;
+	max-height: 100%;
+}
 
 
 </style>
@@ -203,10 +211,10 @@ $(function(){
 	
 	<div class="imgAndFeeAddrBoxDiv">
 		<c:if test="${not empty FILELIST}">
-		<div id="img"><img class="img-thumbnail mainImg" style="border: none;" width="500" height="400" src="${rootPath}/files/${FILELIST[0].file_upload_name}"></div>
+		<div id="img"><img class="mainImg" style="border: none;" width="600" height="500" src="${rootPath}/files/${FILELIST[0].file_upload_name}"></div>
 		</c:if>
 		<c:if test="${empty FILELIST}">
-		<div id="img"><img class="img-thumbnail mainImg" style="border: none;" width="500" height="400" src="${rootPath}/resources/img/no-image.png"></div>
+		<div id="img"><img class="mainImg" style="border: none;" width="600" height="500" src="${rootPath}/resources/img/no-image.png"></div>
 		</c:if>
 		<div class="feeAndAddrBoxDiv">
 			<div style="line-height: 3;">

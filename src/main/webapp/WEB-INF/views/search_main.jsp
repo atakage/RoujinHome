@@ -38,12 +38,68 @@
 
 .listBox{
 	width:30%;
-	border: 1px solid;
+	border: 5px solid rgba(154,205,50,0.5);
+	border-radius:10px;
 	margin: 10 auto;
+}
+
+.listBox:hover{
+	border-color: yellowgreen;
+	cursor: pointer;
 }
 
 .imgAndInfoBoxDiv{
 	display:flex;
+}
+
+.listImg{
+	max-width: 100%;
+	max-height: 100%;
+	border-radius: 10px;
+}
+
+.listBox{
+	overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.listName{
+	font-size:larger;
+	font-weight:bold;
+	white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    margin:20;
+}
+
+.listView{
+	white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    text-align: right;
+}
+
+.imgDiv{
+	width: 50%;
+}
+
+.infoBox{
+	width: 50%;
+}
+
+.listAddr{
+	white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    margin: 50 auto;
+}
+
+.listFee{
+	white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+	margin: 50 auto;
+	color:deeppink;
 }
 
 </style>
@@ -77,6 +133,16 @@ $(function(){
 		}
 		
 		})
+
+
+
+
+		$(document).on('click','.listBox',function(){
+
+
+			document.location.href="${rootPath}/view?sequence="+$(this).find('.sequence').val()
+			
+			})
 
 })
 
@@ -131,23 +197,26 @@ $(function(){
 		
 		<c:forEach items="${SALLIST}" var="SALLIST" varStatus="status">
 			
-		
-			
-			
 			<div class="listBox">
-				<div>${SALLIST.name}</div>
-				<div>${SALLIST.view}</div>
-				<div class="imgAndInfoBoxDiv">
-					<c:if test="${empty FILELIST}">
-					<div><img src="${rootPath}/resources/img/no-image.png" width="100" height="100"></div>
-					</c:if>
-					<div>
-					<div>${SALLIST.address}</div>
-					<div>${SALLIST.fee}円</div>
-					</div>
+					<input class="sequence" type="hidden" value="${SALLIST.sequence }">
+					<div class="listName">${SALLIST.name}</div>
+					<div class="listView">${SALLIST.view}view</div>
+			<div class="imgAndInfoBoxDiv">
+
+				<c:if test="${empty SALLIST.file_upload_name}">
+				<div class="imgDiv"><img class="listImg" src="${rootPath}/resources/img/no-image.png" width="300" height="200"></div>
+				</c:if>
+				<c:if test="${not empty SALLIST.file_upload_name}">
+				<div class="imgDiv"><img class="listImg" src="${rootPath}/files/${SALLIST.file_upload_name}" width="300" height="200"></div>
+				</c:if>
+			
+				<div class="infoBox">
+				<div class="listAddr">${SALLIST.address}</div>
+				<div class="listFee">${SALLIST.fee}円</div>
 				</div>
+				
 			</div>
-		
+				</div>
 		</c:forEach>
 		
 		

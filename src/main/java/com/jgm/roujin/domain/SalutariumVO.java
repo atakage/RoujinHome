@@ -30,4 +30,7 @@ public class SalutariumVO {
 	private String[] featureArr;
 	private String description;
 	private long view;
+	
+	
+	private String file_upload_name;
 }

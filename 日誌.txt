@@ -68,3 +68,14 @@ insertさえも進まない
 
 未解決：アカウント修正や脱退、マイページ、 運営者用管理ページ, spring security inputsal submit post csrf invalid token,
 input_sal ページ　バリデーションチェック（施設名、住所）, viewページイメージサイズ
+
+
+
+
+------------------20200505--------------↓↓↓↓↓
+
+
+
+
+未解決：アカウント修正や脱退、マイページ、 運営者用管理ページ, spring security inputsal submit post csrf invalid token,
+input_sal ページ　バリデーションチェック（施設名、住所）, 施設検索後 select value 維持

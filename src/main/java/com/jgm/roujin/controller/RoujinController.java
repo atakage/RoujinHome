@@ -1,7 +1,7 @@
 package com.jgm.roujin.controller;
 
-import java.io.UnsupportedEncodingException;
 import java.security.Principal;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.stereotype.Controller;
@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
-import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.jgm.roujin.domain.FileVO;
@@ -170,9 +169,31 @@ public class RoujinController {
 	public String searchCenter(Model model) {
 		
 		List<SalutariumVO> salList =  salService.selectAll();
-		List<FileVO> fileList = fileService.findBySalList();
+		List<FileVO> fileList = fileService.findBySalList(salList);
+		
+		log.debug("FILELIST: " + fileList.toString());
+		
+		
+		// 施設検索ページで見せる代表イメージをセットする作業
+		for(int i=0; i <= salList.size()-1;i++) {
+			
+			
+			for(int j=0; j <= fileList.size()-1; j++) {
+				
+				if(salList.get(i).getSequence() == fileList.get(j).getSequence()) {
+					
+
+					
+					salList.get(i).setFile_upload_name(fileList.get(j).getFile_upload_name());
+					break;
+				}
+			}
+			
+		}
+		
 		
 		model.addAttribute("SALLIST", salList);
+
 		
 		return "search_main";
 	}
@@ -203,6 +224,32 @@ public class RoujinController {
 		
 		List<SalutariumVO> salList = salService.findByAddress(todohuken, sikuchouson);
 		int resultCount = salList.size();
+		List<FileVO> fileList = fileService.findBySalList(salList);
+		
+
+		
+		// 施設検索ページで見せる代表イメージをセットする作業
+		for(int i=0; i <= salList.size()-1;i++) {
+			
+			
+			for(int j=0; j <= fileList.size()-1; j++) {
+				
+				if(salList.get(i).getSequence() == fileList.get(j).getSequence()) {
+					
+
+					
+					salList.get(i).setFile_upload_name(fileList.get(j).getFile_upload_name());
+					break;
+				}
+			}
+			
+		}
+		
+		
+		
+		
+		
+		
 		
 		model.addAttribute("RESULTCOUNT", resultCount);
 		model.addAttribute("SALLIST", salList);

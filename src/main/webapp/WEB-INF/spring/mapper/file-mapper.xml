@@ -6,6 +6,21 @@
  <mapper namespace="com.jgm.roujin.persistence.FileDao">
 
 
+	
+	<select id="findBySalList" resultType="fileVO">
+	
+	SELECT * FROM tbl_file WHERE sequence IN
+	
+	<foreach collection="salList" item="salList" separator="," open="(" close=")">
+	
+		 #{salList.sequence}
+	
+	</foreach>
+	
+	</select>
+
+
+
 	<insert id="insert" parameterType="list">
 	
 	INSERT INTO tbl_file(sequence, file_code, file_origin_name, file_upload_name) VALUES

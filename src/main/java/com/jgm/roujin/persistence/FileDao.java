@@ -6,6 +6,7 @@ import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 
 import com.jgm.roujin.domain.FileVO;
+import com.jgm.roujin.domain.SalutariumVO;
 
 public interface FileDao {
 
@@ -17,6 +18,9 @@ public interface FileDao {
 
 	@Select("SELECT * FROM tbl_file WHERE sequence = #{sequence}")
 	List<FileVO> findBySeq(Long sequence);
+
+	List<FileVO> findBySalList(@Param("salList") List<SalutariumVO> salList);
+
 
 	
 }

@@ -156,6 +156,14 @@ public class FileService {
 	}
 
 
+	public List<FileVO> findBySalList(List<SalutariumVO> salList) {
+		// TODO Auto-generated method stub
+		
+		
+		return fileDao.findBySalList(salList);
+	}
+
+
 	
 
 	
