@@ -97,4 +97,12 @@ public class SalutariumService {
 		return salDao.selectAll();
 	}
 
+	public List<SalutariumVO> selectByPagi(int startList, int listSize) {
+		// TODO Auto-generated method stub
+		
+		
+		
+		return salDao.selectByPagi(startList, listSize);
+	}
+
 }

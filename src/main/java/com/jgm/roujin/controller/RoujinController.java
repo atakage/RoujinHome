@@ -1,11 +1,11 @@
 package com.jgm.roujin.controller;
 
 import java.security.Principal;
-import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -15,9 +15,11 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.jgm.roujin.domain.FileVO;
+import com.jgm.roujin.domain.PaginationVO;
 import com.jgm.roujin.domain.SalutariumVO;
 import com.jgm.roujin.domain.UserDetailsVO;
 import com.jgm.roujin.service.FileService;
+import com.jgm.roujin.service.PaginationService;
 import com.jgm.roujin.service.SalutariumService;
 import com.jgm.roujin.service.UserService;
 
@@ -36,6 +38,7 @@ public class RoujinController {
 	private final UserService userService;
 	private final FileService fileService;
 	private final SalutariumService salService;
+	private final PaginationService pagiService;
 	
 	
 	@ModelAttribute("userVO")
@@ -166,13 +169,37 @@ public class RoujinController {
 
 	
 	@RequestMapping(value="/searchcenter", method=RequestMethod.GET)
-	public String searchCenter(Model model) {
+	public String searchCenter(Model model, @RequestParam(required =false, defaultValue = "1") int page,
+			@RequestParam(required = false, defaultValue = "1") int range) {
 		
-		List<SalutariumVO> salList =  salService.selectAll();
+		log.debug("page,range: " + page +","+ range);
+		
+		
+		int listCnt = pagiService.getListCnt();
+		
+		log.debug("LISTCOUNT: " + listCnt);
+		
+		PaginationVO pagiVO = new PaginationVO();
+		pagiVO.setListCnt(listCnt);
+		pagiVO.setPage(page);
+		pagiVO.setRange(range);
+		
+
+		pagiVO = pagiService.pageInfo(pagiVO);
+		
+
+		
+		//List<SalutariumVO> salList =  salService.selectAll();
+		
+		log.debug("st,ls: "+pagiVO.getStartList() +",,,," +pagiVO.getListSize());
+		
+		List<SalutariumVO> salList =  salService.selectByPagi(pagiVO.getStartList(), pagiVO.getListSize());
 		List<FileVO> fileList = fileService.findBySalList(salList);
 		
-		log.debug("FILELIST: " + fileList.toString());
 		
+		log.debug("PAGIVO: " + pagiVO.toString());
+		log.debug("SALLIST: "+salList.toString() );
+		log.debug("ENDPAGE: "+pagiVO.getEndPage() );
 		
 		// 施設検索ページで見せる代表イメージをセットする作業
 		for(int i=0; i <= salList.size()-1;i++) {
@@ -193,6 +220,7 @@ public class RoujinController {
 		
 		
 		model.addAttribute("SALLIST", salList);
+		model.addAttribute("PAGIVO", pagiVO);
 
 		
 		return "search_main";

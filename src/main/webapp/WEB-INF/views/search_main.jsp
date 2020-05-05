@@ -33,6 +33,7 @@
 	display: flex;
     flex-wrap: wrap;
     text-align: center;
+    margin-bottom: 5%;
     
 }
 
@@ -100,6 +101,28 @@
     overflow: hidden;
 	margin: 50 auto;
 	color:deeppink;
+}
+
+.pagiBoxDiv{
+	display: flex;
+}
+
+.pagination{
+	margin: 0 auto;
+}
+
+.page-item{
+	border: 2px solid yellowgreen;
+	
+}
+
+.page-link{
+	color:yellowgreen;
+	font-weight: bold;
+}
+
+.page-link:hover{
+	color:darkgreen;
 }
 
 </style>
@@ -229,6 +252,44 @@ $(function(){
 	
 	
 	</c:choose>
+
+</div>
+
+
+
+<div class="pagiBoxDiv">
+
+
+<ul class="pagination">
+
+
+	
+	<c:if test="${PAGIVO.prev == false}">
+    <li class="page-item"><a class="page-link" href="#">Prev</a></li>
+    </c:if>
+    <c:if test="${PAGIVO.prev == true}">
+    <li class="page-item"><a class="page-link" href="${rootPath}/searchcenter?page=${((PAGIVO.range-2)*PAGIVO.rangeSize)+1}&range=${PAGIVO.range-1}">Prev</a></li>
+    </c:if>
+    
+    
+    <c:forEach  var="idx" begin="${PAGIVO.startPage}" end="${PAGIVO.endPage}" >
+    
+    <li class="page-item<c:out value="${PAGIVO.page == idx ? 'active':''}"/>"><a class="page-link" href="${rootPath}/searchcenter?page=${PAGIVO.page}&range=${PAGIVO.range}">${idx}</a></li>
+    
+    
+    </c:forEach>
+
+    
+    
+    
+    
+    <c:if test="${PAGIVO.next == false}">
+    <li class="page-item"><a class="page-link" href="#">Next</a></li>
+    </c:if>
+    <c:if test="${PAGIVO.next == true}">
+    <li class="page-item"><a class="page-link" href="${rootPath}/searchcenter?page=${(PAGIVO.range * PAGIVO.rangeSize)+1}&range=${PAGIVO.range+1}">Next</a></li>
+    </c:if>
+ </ul>
 
 </div>
 

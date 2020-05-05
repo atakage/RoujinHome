@@ -15,10 +15,10 @@ import lombok.ToString;
 public class PaginationVO {
 	
 	// １ページにコンテンツ数
-	private int listSize = 10;
+	private int listSize = 6;
 	
 	// 1ブロックにページ数
-	private int rangeSize = 5;
+	private int rangeSize = 1;
 	
 	private int page;
 	private int range;

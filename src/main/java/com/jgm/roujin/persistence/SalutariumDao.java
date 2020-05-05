@@ -29,4 +29,7 @@ public interface SalutariumDao {
 	@Select("SELECT * FROM tbl_salutarium")
 	List<SalutariumVO> selectAll();
 
+	@Select("SELECT * FROM tbl_salutarium LIMIT #{startList},#{listSize} ")
+	List<SalutariumVO> selectByPagi(@Param("startList") int startList, @Param("listSize") int listSize);
+
 }
