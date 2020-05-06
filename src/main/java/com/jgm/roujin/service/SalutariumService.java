@@ -105,4 +105,14 @@ public class SalutariumService {
 		return salDao.selectByPagi(startList, listSize);
 	}
 
+	public List<SalutariumVO> selectByPagiAddr(int startList, int listSize, String todohuken, String sikuchouson) {
+		// TODO Auto-generated method stub
+		return salDao.selectByPagiAddr(startList, listSize, todohuken, sikuchouson);
+	}
+
+	public List<SalutariumVO> getPopSal() {
+		// TODO Auto-generated method stub
+		return salDao.getPopSal();
+	}
+
 }

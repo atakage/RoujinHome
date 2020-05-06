@@ -125,6 +125,11 @@
 	color:darkgreen;
 }
 
+.page-item.active .page-link{
+	background-color: forestgreen;
+    border-color: forestgreen;
+}
+
 </style>
 
 
@@ -135,23 +140,31 @@ $(function(){
 
 
 
+	if($('#resultcount').text().length > 0){
+
+		$('.listAddr').css('font-weight','bold')
+		}
+	
+
+
+
 	$('#todohuken').change(function(){
 
 		var todohuken = $('#todohuken option:selected').val()
 		
 
-		if(todohuken == 'hokkaido'){
+		if(todohuken == '北海道'){
 
 				$('#sikuchouson option').remove()
-				$('#sikuchouson').append("<option value='sapporo'>札幌市</option>")
-				$('#sikuchouson').append("<option value='nemuro'>根室市</option>")
+				$('#sikuchouson').append("<option value='札幌市'>札幌市</option>")
+				$('#sikuchouson').append("<option value='根室市'>根室市</option>")
 
-		}else if(todohuken == 'tokyo'){
+		}else if(todohuken == '東京都'){
 
 
 			$('#sikuchouson option').remove()
-			$('#sikuchouson').append("<option value='kodaira'>小平市</option>")
-			$('#sikuchouson').append("<option value='machida'>町田市</option>")
+			$('#sikuchouson').append("<option value='小平市'>小平市</option>")
+			$('#sikuchouson').append("<option value='町田市'>町田市</option>")
 
 		}
 		
@@ -165,6 +178,17 @@ $(function(){
 
 			document.location.href="${rootPath}/view?sequence="+$(this).find('.sequence').val()
 			
+			})
+
+
+
+		$(document).on('click','.searchButton',function(){
+
+			var todohuken = $('#todohuken option:selected').val()
+			var sikuchouson = $('#sikuchouson option:selected').val()
+
+
+			document.location.href="${rootPath}/searchcenteraddr?todohuken="+todohuken+"&sikuchouson="+sikuchouson
 			})
 
 })
@@ -188,23 +212,23 @@ $(function(){
 <form action="${rootPath}/searchcenter" method="post" style="display: contents">
 	<div>
 		<select id="todohuken" name="todohuken">
-			<option value="hokkaido">北海道</option>
-			<option value="tokyo">東京都</option>
+			<option value="北海道">北海道</option>
+			<option value="東京都">東京都</option>
 		</select>
 		
 	</div>
 	<div>
 		<select id="sikuchouson" name="sikuchouson">
-			<option value='sapporo'>札幌市</option>
-			<option value='nemuro'>根室市</option>
+			<option value='札幌市'>札幌市</option>
+			<option value='根室市'>根室市</option>
 		</select>
 	</div>
 	<div>
-		<button class="searchButton">探す</button>
+		<button type="button" class="searchButton">探す</button>
 	</div>
 </form>	
 	<div style="float:right;">
-		検索結果:<span style="color: red; font-weight: bold">${RESULTCOUNT}</span>件
+		検索結果:<span id="resultcount" style="color: red; font-weight: bold">${RESULTCOUNT}</span>件
 	</div>
 
 </div>
@@ -260,9 +284,10 @@ $(function(){
 <div class="pagiBoxDiv">
 
 
+
 <ul class="pagination">
 
-
+	<c:if test="${empty RESULTCOUNT}">
 	
 	<c:if test="${PAGIVO.prev == false}">
     <li class="page-item"><a class="page-link" href="#">Prev</a></li>
@@ -274,7 +299,7 @@ $(function(){
     
     <c:forEach  var="idx" begin="${PAGIVO.startPage}" end="${PAGIVO.endPage}" >
     
-    <li class="page-item<c:out value="${PAGIVO.page == idx ? 'active':''}"/>"><a class="page-link" href="${rootPath}/searchcenter?page=${PAGIVO.page}&range=${PAGIVO.range}">${idx}</a></li>
+    <li class="page-item<c:out value="${PAGIVO.page == idx ? ' active':''}"/>"><a class="page-link" href="${rootPath}/searchcenter?page=${idx}&range=${PAGIVO.range}">${idx}</a></li>
     
     
     </c:forEach>
@@ -289,7 +314,58 @@ $(function(){
     <c:if test="${PAGIVO.next == true}">
     <li class="page-item"><a class="page-link" href="${rootPath}/searchcenter?page=${(PAGIVO.range * PAGIVO.rangeSize)+1}&range=${PAGIVO.range+1}">Next</a></li>
     </c:if>
+    
+    
+  
+    
+    </c:if>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <c:if test="${ not empty RESULTCOUNT}">
+
+    
+    <c:if test="${PAGIVO.prev == false}">
+    <li class="page-item"><a class="page-link" href="#">Prev</a></li>
+    </c:if>
+    <c:if test="${PAGIVO.prev == true}">
+    <li class="page-item"><a class="page-link" href="${rootPath}/searchcenteraddr?page=${((PAGIVO.range-2)*PAGIVO.rangeSize)+1}&range=${PAGIVO.range-1}&todohuken=${TODOHUKEN}&sikuchouson=${SIKUCHOUSON}">Prev</a></li>
+    </c:if>
+    
+    
+    <c:forEach  var="idx" begin="${PAGIVO.startPage}" end="${PAGIVO.endPage}" >
+    
+    <li class="page-item<c:out value="${PAGIVO.page == idx ? ' active':''}"/>"><a class="page-link" href="${rootPath}/searchcenteraddr?page=${idx}&range=${PAGIVO.range}&todohuken=${TODOHUKEN}&sikuchouson=${SIKUCHOUSON}">${idx}</a></li>
+    
+    
+    </c:forEach>
+
+    
+    
+    
+    
+    <c:if test="${PAGIVO.next == false}">
+    <li class="page-item"><a class="page-link" href="#">Next</a></li>
+    </c:if>
+    <c:if test="${PAGIVO.next == true}">
+    <li class="page-item"><a class="page-link" href="${rootPath}/searchcenteraddr?page=${(PAGIVO.range * PAGIVO.rangeSize)+1}&range=${PAGIVO.range+1}&todohuken=${TODOHUKEN}&sikuchouson=${SIKUCHOUSON}">Next</a></li>
+    </c:if>
+    
+
+    
+    </c:if>
+    
  </ul>
+ 
+     
 
 </div>
 

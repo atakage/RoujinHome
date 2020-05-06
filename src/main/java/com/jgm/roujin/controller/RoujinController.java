@@ -229,29 +229,28 @@ public class RoujinController {
 	
 	
 	
-	@RequestMapping(value="/searchcenter", method=RequestMethod.POST)
-	public String searchCenter(String todohuken, String sikuchouson, Model model) {
+	@RequestMapping(value="/searchcenteraddr", method=RequestMethod.GET)
+	public String searchCenterAddr(@RequestParam("todohuken") String todohuken, @RequestParam("sikuchouson") String sikuchouson, Model model,
+			@RequestParam(required =false, defaultValue = "1") int page, @RequestParam(required = false, defaultValue = "1") int range) {
 		
 		
-		// post submitのとき文字化けのため
-		if(todohuken.equals("hokkaido")) {
-			todohuken = "北海道";
-		}else if(todohuken.equals("tokyo")) {
-			todohuken = "東京都";
-		}
+		log.debug("todosiku: " + todohuken + sikuchouson);
 		
-		if(sikuchouson.equals("sapporo")) {
-			sikuchouson = "札幌市";
-		}else if(sikuchouson.equals("nemuro")) {
-			sikuchouson = "根室市";
-		}else if(sikuchouson.equals("kodaira")) {
-			sikuchouson = "小平市";
-		}else if(sikuchouson.equals("machida")) {
-			sikuchouson = "町田市";
-		}
 		
-		List<SalutariumVO> salList = salService.findByAddress(todohuken, sikuchouson);
-		int resultCount = salList.size();
+		List<SalutariumVO> salListForCnt = salService.findByAddress(todohuken, sikuchouson);
+		int resultCount = salListForCnt.size();
+		
+		PaginationVO pagiVO = new PaginationVO();
+		pagiVO.setListCnt(resultCount);
+		pagiVO.setPage(page);
+		pagiVO.setRange(range);
+		
+
+		pagiVO = pagiService.pageInfo(pagiVO);
+		
+		
+		List<SalutariumVO> salList =  salService.selectByPagiAddr(pagiVO.getStartList(), pagiVO.getListSize(),todohuken, sikuchouson);
+		
 		List<FileVO> fileList = fileService.findBySalList(salList);
 		
 
@@ -273,15 +272,14 @@ public class RoujinController {
 			
 		}
 		
-		
-		
-		
-		
-		
+
 		
 		model.addAttribute("RESULTCOUNT", resultCount);
 		model.addAttribute("SALLIST", salList);
-		
+		model.addAttribute("PAGIVO", pagiVO);
+		model.addAttribute("SIKUCHOUSON",sikuchouson);
+		model.addAttribute("TODOHUKEN",todohuken);
+
 		
 		return "search_main";
 	}

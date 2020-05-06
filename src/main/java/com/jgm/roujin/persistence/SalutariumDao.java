@@ -32,4 +32,13 @@ public interface SalutariumDao {
 	@Select("SELECT * FROM tbl_salutarium LIMIT #{startList},#{listSize} ")
 	List<SalutariumVO> selectByPagi(@Param("startList") int startList, @Param("listSize") int listSize);
 
+	
+	List<SalutariumVO> selectByPagiAddr(@Param("startList") int startList, @Param("listSize") int listSize, @Param("todohuken") String todohuken, @Param("sikuchouson") String sikuchouson);
+
+	@Select("SELECT * FROM tbl_salutarium ORDER BY VIEW DESC LIMIT 3")
+	List<SalutariumVO> getPopSal();
+
+
+	
+
 }

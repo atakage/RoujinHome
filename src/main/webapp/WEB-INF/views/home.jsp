@@ -99,7 +99,11 @@
 <div id="carouselDiv" class="carousel slide" data-ride="carousel">
 
 	
+	
 	<div class="carousel-inner">
+	
+	<c:if test="${empty SALLIST}">
+	
 		<div class="carousel-item active">
 			<div class="item">
 				
@@ -133,10 +137,38 @@
 				</div>
 			</div>	
 		</div>
+		
+	</c:if>
+	
+	
+	
+	
+	<c:if test="${not empty SALLIST }">
+	
+		<c:forEach items="${SALLIST}" var="SALLIST" varStatus="status">
+		
+		
+		
+		<div class="carousel-item<c:out value="${status.index == 0 ? ' active':''}"/>">
+			<div class="item">
+				<img src="${rootPath}/files/${SALLIST.file_upload_name}" class="img-thumbnail"   alt="test">
+				<div>
+					ddd<br>
+					ddd<br>
+					ddd<br>
+				</div>
+			</div>	
+		</div>
+		
+		</c:forEach>
+	
+	
+	</c:if>
+		
 	</div>
 	
 	
-	
+
 	
 	<a class="carousel-control-prev" href="#carouselDiv" data-slide="prev">
 		<span class="prevIcon">&lt;</span>

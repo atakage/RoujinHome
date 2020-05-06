@@ -11,6 +11,11 @@
 		SELECT * FROM tbl_salutarium WHERE address LIKE CONCAT('%',#{todohuken},'%') AND address LIKE CONCAT('%',#{sikuchouson},'%')
 	
 	</select>
+	
+	<select id="selectByPagiAddr" resultType="salutariumVO">
+		SELECT * FROM tbl_salutarium WHERE address LIKE CONCAT('%',#{todohuken},'%') AND address LIKE CONCAT('%',#{sikuchouson},'%')
+		LIMIT #{startList},#{listSize}
+	</select>
 
 
 	<insert id="insertSal" parameterType="salutariumVO" useGeneratedKeys="true" keyProperty="sequence">

@@ -18,7 +18,7 @@ public class PaginationVO {
 	private int listSize = 6;
 	
 	// 1ブロックにページ数
-	private int rangeSize = 1;
+	private int rangeSize = 3;
 	
 	private int page;
 	private int range;

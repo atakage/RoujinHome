@@ -31,20 +31,20 @@ public class PaginationService {
 		
 		pagiVO.setPrev(pagiVO.getRange() == 1 ? false : true);
 		
-		log.debug("씨발1: " + pagiVO.toString());
+	
 		
 		pagiVO.setNext(pagiVO.getPageCnt() > pagiVO.getEndPage() ? true : false);
 		
 		//pagiVO.setNext(pagiVO.getEndPage() > pagiVO.getPageCnt() ? false:true);
-		log.debug("씨발2: " + pagiVO.toString());
+	
 		if(pagiVO.getEndPage() > pagiVO.getPageCnt()) {
 			
 			pagiVO.setEndPage(pagiVO.getPageCnt());
 			pagiVO.setNext(false);
-			log.debug("씨발3: " + pagiVO.toString());
+		
 		}
 		
-		log.debug("씨발4: " + pagiVO.toString());
+	
 		
 		return pagiVO;
 		
