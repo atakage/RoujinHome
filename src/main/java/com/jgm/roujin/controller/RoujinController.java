@@ -283,5 +283,20 @@ public class RoujinController {
 		
 		return "search_main";
 	}
+	
+	
+	
+	
+	@RequestMapping(value="/modianddelsal", method=RequestMethod.GET)
+	public String modiAndDelSal(Principal principal, Model model) {
+		
+		String username = principal.getName();
+		
+		List<SalutariumVO> salList = salService.findByUsername(username);
+		
+		model.addAttribute("SALLIST", salList);
+		
+		return "modidel_sal";
+	}
 
 }

@@ -38,6 +38,9 @@ public interface SalutariumDao {
 	@Select("SELECT * FROM tbl_salutarium ORDER BY VIEW DESC LIMIT 3")
 	List<SalutariumVO> getPopSal();
 
+	@Select("SELECT * FROM tbl_salutarium WHERE username = #{username}")
+	List<SalutariumVO> findByUsername(String username);
+
 
 	
 

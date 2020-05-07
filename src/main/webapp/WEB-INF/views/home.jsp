@@ -32,8 +32,14 @@
 
 }
 
+.item:hover{
+	cursor: pointer;
+}
+
 .img-thumbnail{
 	border:none;
+	width:1000px;
+	height:600px;
 }
 
 
@@ -47,7 +53,7 @@
 .carousel-indicators li{
 	
 	background-color: yellowgreen;
-	height:10px;
+	height:20px;
 }
 
 .circle{
@@ -80,10 +86,59 @@
 	border-color:yellowgreen;
 }
 
+.infoBoxDiv{
+	background-color: yellowgreen;
+	color: white;
+    font-weight: bold;
+    font-size: x-large;
+}
+
+
+.salName{
+white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+
+.salAddr{
+	white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+
+.salFee{
+	white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
 
 </style>
 
 
+<script>
+
+
+$(function(){
+
+
+
+
+	$(document).on('click','.item',function(){
+
+
+
+		document.location.href="${rootPath}/view?sequence="+$(this).find('.sequence').val()
+
+
+		
+		})
+		
+
+	
+	
+})
+
+</script>
 
 
 <body>
@@ -151,11 +206,12 @@
 		
 		<div class="carousel-item<c:out value="${status.index == 0 ? ' active':''}"/>">
 			<div class="item">
+				<input class="sequence" type="hidden" value="${SALLIST.sequence}">
 				<img src="${rootPath}/files/${SALLIST.file_upload_name}" class="img-thumbnail"   alt="test">
-				<div>
-					ddd<br>
-					ddd<br>
-					ddd<br>
+				<div class="infoBoxDiv">
+					<div class="salName">${SALLIST.name}</div>
+					<div class="salAddr">${SALLIST.address}</div>
+					<div class="salFee">${SALLIST.fee}円</div>
 				</div>
 			</div>	
 		</div>

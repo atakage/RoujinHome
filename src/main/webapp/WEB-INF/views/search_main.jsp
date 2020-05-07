@@ -65,6 +65,8 @@
 }
 
 .listName{
+	background-color:yellowgreen;
+	border-radius:5px;
 	font-size:larger;
 	font-weight:bold;
 	white-space: nowrap;

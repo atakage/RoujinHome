@@ -115,4 +115,9 @@ public class SalutariumService {
 		return salDao.getPopSal();
 	}
 
+	public List<SalutariumVO> findByUsername(String username) {
+		// TODO Auto-generated method stub
+		return salDao.findByUsername(username);
+	}
+
 }
