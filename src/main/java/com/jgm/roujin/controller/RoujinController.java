@@ -298,5 +298,27 @@ public class RoujinController {
 		
 		return "modidel_sal";
 	}
+	
+	
+	
+	@RequestMapping(value="/updatesal", method=RequestMethod.GET)
+	public String updateSal(@RequestParam("sequence") String sequence, Principal principal, Model model) {
+		
+		
+		
+		
+		SalutariumVO salVO = salService.findBySeq(Long.valueOf(sequence));
+		
+		
+		if(!principal.getName().equals(salVO.getUsername())) {
+			model.addAttribute("NOTMATCHUSERNAME", "YES");
+			return "update_sal";
+		}
+		
+		
+		salVO = salService.refinSalVO(salVO);
+		
+		return null;
+	}
 
 }

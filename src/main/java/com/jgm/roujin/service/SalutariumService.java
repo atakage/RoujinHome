@@ -120,4 +120,23 @@ public class SalutariumService {
 		return salDao.findByUsername(username);
 	}
 
+	public SalutariumVO refinSalVO(SalutariumVO salVO) {
+		// TODO Auto-generated method stub
+		
+	    String[] addrArr = salVO.getAddress().trim().split(" ");
+	    salVO.setAddressArr(addrArr);
+	    
+	    String featureDB = salVO.getFeature().replace("[", "");
+		featureDB = featureDB.replace("]", "");
+		salVO.setFeatureArr(featureDB.split(","));
+		
+		
+		String[] imsi = salVO.getFeatureArr();
+		
+	    
+	    
+	     
+		return salVO;
+	}
+
 }
