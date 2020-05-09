@@ -311,14 +311,23 @@ public class RoujinController {
 		
 		
 		if(!principal.getName().equals(salVO.getUsername())) {
-			model.addAttribute("NOTMATCHUSERNAME", "YES");
-			return "update_sal";
+			
+			//redirect attribute!!
+			
+			
+			return "redirect:/";
 		}
 		
 		
 		salVO = salService.refinSalVO(salVO);
 		
-		return null;
+		List<FileVO> fileList = fileService.findBySeq(salVO.getSequence());
+		
+		
+		model.addAttribute("SALVO", salVO);
+		model.addAttribute("FILELIST", fileList);
+		
+		return "update_sal";
 	}
 
 }

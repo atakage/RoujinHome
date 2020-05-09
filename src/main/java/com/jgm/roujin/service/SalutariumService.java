@@ -5,6 +5,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 
 import com.jgm.roujin.domain.FileVO;
 import com.jgm.roujin.domain.SalutariumVO;
@@ -126,11 +127,9 @@ public class SalutariumService {
 	    String[] addrArr = salVO.getAddress().trim().split(" ");
 	    salVO.setAddressArr(addrArr);
 	    
-	    String featureDB = salVO.getFeature().replace("[", "");
+	    String featureDB = salVO.getFeature().replace("[", "").replace(" ","");
 		featureDB = featureDB.replace("]", "");
 		salVO.setFeatureArr(featureDB.split(","));
-		
-		
 		String[] imsi = salVO.getFeatureArr();
 		
 	    

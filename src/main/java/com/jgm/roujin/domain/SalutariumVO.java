@@ -31,6 +31,7 @@ public class SalutariumVO {
 	private String description;
 	private long view;
 	
+	private String mainFile; // path error防止
 	
 	private String file_upload_name;
 }
