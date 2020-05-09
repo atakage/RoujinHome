@@ -65,12 +65,55 @@ button{
 	margin-bottom:5%;
 }
 
+.imgDelMSGSpan{
+	position: relative;
+}
+
+.delMSG{
+	display: block;
+    position: absolute;
+
+    top: -100;
+    right: 0;
+    transform: translate(-50%,-50%);
+    font-size: larger;
+    font-weight: bold;
+    max-width: 100%;
+    max-height: 100%;
+   
+    
+}
+
+
+
+.delMSG:hover{
+	cursor: pointer;
+	
+}
+
+
+
+
 </style>
 
 
 <script>
 
 $(function(){
+
+
+
+
+	if(${SALVO.addressArr[0] == '東京都' }){
+
+		// jqueryでは　　spring form tagが　append不可能
+		
+		$('#todohuken').append("<option value='北海道'>北海道</option>")
+		
+		
+		}
+
+	
 
 
 
@@ -171,7 +214,7 @@ $(function(){
 				
 				reader.onload = function(e){
 						
-						var img_html = "<img src=\""+e.target.result+"\" class='imgImg' width='250px' height='250px'/>"				
+						var img_html = "<img src=\""+e.target.result+"\" class='imgImg newImg' width='250px' height='250px'/>"				
 						$('.imgs_wrap').append(img_html)
 					}
 				reader.readAsDataURL(f)
@@ -183,8 +226,6 @@ $(function(){
 
 
 
-
-	
 
 
 
@@ -277,7 +318,8 @@ $(function(){
 	<div class="head">施設修正削除</div>
 
 	<div class="form-group inputBox">
-		<form:form method="post" enctype="multipart/form-data" modelAttribute="SALVO">
+		<form method="post" enctype="multipart/form-data">
+			<form:form modelAttribute="SALVO">
 		
 			
 			<input type="hidden" name="${_csrf.parameterName }" value="${_csrf.token }">
@@ -285,27 +327,27 @@ $(function(){
 			
 			<div>
 				<div class="title">施設名</div>
-				<form:input class="form-control" path="name" id="name" maxlength="50" placeholder="50文字以内"/>
+				<input class="form-control" name="name" id="name" maxlength="50" placeholder="50文字以内" value="${SALVO.name }"/>
 			</div>
 			<br>
 			
 			<div>
 				<div class="title">住所</div>
 				<div>
-					<form:select id="todohuken" path="addressArr">
-						<form:option value="${SALVO.addressArr[0]}">${SALVO.addressArr[0]}</form:option>
-					</form:select>
-					<form:select id="todohuken" path="addressArr">
-						<form:option value="${SALVO.addressArr[1]}">${SALVO.addressArr[1]}</form:option>
-					</form:select>
+					<select id="todohuken" name="addressArr">
+						<option value="${SALVO.addressArr[0]}">${SALVO.addressArr[0]}</option>
+					</select>
+					<select id="sikuchouson" name="addressArr">
+						<option value="${SALVO.addressArr[1]}">${SALVO.addressArr[1]}</option>
+					</select>
 				</div>
-				<form:input class="form-control" path="address" id="address" value="${SALVO.addressArr[2]}" maxlength="100" placeholder="100文字以内"/>
+				<input class="form-control" name="address" id="address" value="${SALVO.addressArr[2]}" maxlength="100" placeholder="100文字以内"/>
 			</div>
 			<br>
 			
 			<div>
 				<div class="title">入居費用(月額)</div>
-				<form:input class="form-control" path="fee" value="${SALVO.fee }" id="fee" maxlength="7" style="width:20%;" placeholder="円" onkeyup="this.value=this.value.replace(/[^0-9]/g,'')"/>
+				<input class="form-control" name="fee" value="${SALVO.fee }" id="fee" maxlength="7" style="width:20%;" placeholder="円" onkeyup="this.value=this.value.replace(/[^0-9]/g,'')"/>
 			</div>
 			<br>
 			
@@ -313,16 +355,27 @@ $(function(){
 				<div class="title">施設の特徴</div>
 				<div class="checkBoxDiv">
 					<div class="checkBoxInnerDiv">
-					<form:checkbox  path="featureArr" value="夜間有人" label="夜間有人"/>
-					<form:checkbox  path="featureArr" value="訪問看護" label="訪問看護"/>
-					<form:checkbox  path="featureArr" value="個室あり" label="個室あり"/>
-					<form:checkbox  path="featureArr" value="ナースコール" label="ナースコール"/>
+					
+					
+					<form:checkbox path="featureArr" value="夜間有人" label="夜間有人"/>
+
+					<input type="checkbox"  name="featureArr" value="訪問看護"/>
+					<label>訪問看護</label>
+					<input type="checkbox"  name="featureArr" value="個室あり"/>
+					<label>個室あり</label>
+					<input type="checkbox"  name="featureArr" value="ナースコール"/>
+					<label>ナースコール</label>
 					<br>
-					<form:checkbox  path="featureArr" value="入浴週3回" label="入浴週3回"/>
-					<form:checkbox  path="featureArr" value="館内禁煙" label="館内禁煙"/>
-					<form:checkbox  path="featureArr" value="交通便利" label="交通便利"/>
-					<form:checkbox  path="featureArr" value="外出自由" label="外出自由"/>
-					<form:checkbox  path="featureArr" value="アルコール可" label="アルコール可"/>	
+					<input type="checkbox"  name="featureArr" value="入浴週3回"/>
+					<label>入浴週3回</label>
+					<input type="checkbox"  name="featureArr" value="館内禁煙"/>
+					<label>館内禁煙</label>
+					<input type="checkbox"  name="featureArr" value="交通便利"/>
+					<label>交通便利</label>
+					<input type="checkbox"  name="featureArr" value="外出自由"/>
+					<label>外出自由</label>
+					<input type="checkbox"  name="featureArr" value="アルコール可"/>	
+					<label>アルコール可</label>
 					</div>
 					
 					
@@ -334,7 +387,7 @@ $(function(){
 			
 			<div>
 				<div class="title">施設紹介</div>
-				<form:textarea class="form-control" path="description" id="description" maxlength="2000" rows="10" cols="10" placeholder="2000文字以内"></form:textarea>
+				<textarea class="form-control" name="description" id="description" maxlength="2000" rows="10" cols="10" placeholder="2000文字以内">${SALVO.description }</textarea>
 			</div>
 			<br>
 			
@@ -346,7 +399,7 @@ $(function(){
 				<div>メインイメージ</div>
 				
 				<div>
-					<form:input id="input_mainImg" type="file" path="mainFile"  accept="image/*"/>
+					<input id="input_mainImg" type="file" name="mainFile"  accept="image/*"/>
 				</div>
 				
 				<div class="img_wrap">
@@ -368,12 +421,16 @@ $(function(){
 				<div class="Thumbnail allImgs_wrap">
 				
 				
-				<c:if test="${not empty FILELIST}">
+					<c:if test="${not empty FILELIST}">
 						<c:forEach items="${FILELIST}" var="FILELIST" begin="1">
 						
-							<img src="${rootPath}/files/${FILELIST.file_upload_name}" class='imgImg' width='250px' height='250px'/>
-						
+							<span class="imgDelMSGSpan">
+							<img src="${rootPath}/files/${FILELIST.file_upload_name}" class='imgImg originImg' width='250px' height='250px'/>
+							<input type="hidden" class="fileCode" value="${FILELIST.file_code}"></input>
+							<span class="delMSG">&times;</span>
+							</span>
 						</c:forEach>
+
 					</c:if>
 				
 
@@ -389,6 +446,7 @@ $(function(){
 			
 		<button class="inputBtn" type="button">登録</button>	
 		</form:form>
+		</form>
 	</div>
 
 </body>
