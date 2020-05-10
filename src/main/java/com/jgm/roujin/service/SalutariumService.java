@@ -37,7 +37,7 @@ public class SalutariumService {
 		try {
 			
 			salutariumVO.setFeature(Arrays.toString(salutariumVO.getFeatureArr()));
-			
+			log.debug("inputsal: " + salutariumVO.getFeature());
 		} catch (Exception e) {
 			// TODO: handle exception
 			e.printStackTrace();
@@ -68,9 +68,12 @@ public class SalutariumService {
 		salVO.setAddress(salVO.getAddress().replace(",", " "));
 		
 		// feature分類
-		
+		log.debug("FEATURE: " +salVO.getFeature());
 		String featureDB = salVO.getFeature().replace("[", "");
 		featureDB = featureDB.replace("]", "");
+		
+		log.debug("FEATURE: " +featureDB);
+		
 		salVO.setFeatureArr(featureDB.split(","));
 		
 		
@@ -136,6 +139,65 @@ public class SalutariumService {
 	    
 	     
 		return salVO;
+	}
+
+	public long updateSal(SalutariumVO salVO, Principal principal) {
+		// TODO Auto-generated method stub
+		
+		
+		
+		salVO.setUsername(principal.getName());
+		
+		
+		
+		// checkbox null
+		try {
+			
+			
+			
+			
+			log.debug("updatesal: " + salVO.getFeature());
+			if(salVO.getFeatureArr().length > 0) {
+			salVO.setFeature(Arrays.toString(salVO.getFeatureArr()));
+			log.debug("updatesal2: " + salVO.getFeature());
+			}else {
+				salVO.setFeature("null");	
+			}
+				
+			
+		
+			
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		}
+		
+		
+		
+		 int ret = salDao.updateSal(salVO); 
+		 
+		 log.debug("sequence: " + salVO.getSequence());
+		 
+		 
+		 
+		
+		
+		 return salVO.getSequence();
+	}
+
+	public String deleteSal(Long sequence) {
+		// TODO Auto-generated method stub
+		
+		int ret = salDao.deleteSal(sequence);
+		
+		
+		if(ret > 0) {
+			return "削除成功";
+		}else {
+			return "削除失敗";
+		}
+		
+	
 	}
 
 }

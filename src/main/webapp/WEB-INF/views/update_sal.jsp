@@ -91,6 +91,11 @@ button{
 	
 }
 
+.deleteBtn{
+	margin-left: 3%;
+	color:red;
+}
+
 
 
 
@@ -110,10 +115,26 @@ $(function(){
 		
 		$('#todohuken').append("<option value='北海道'>北海道</option>")
 		
-		
+		if(${SALVO.addressArr[1] == '小平市'}){
+			$('#sikuchouson').append("<option value='町田市'>町田市</option>")
+			}else if(${SALVO.addressArr[1] == '町田市'}){
+				$('#sikuchouson').append("<option value='小平市'>小平市</option>")	
+				}
 		}
 
-	
+
+	if(${SALVO.addressArr[0] == '北海道' }){
+
+		// jqueryでは　　spring form tagが　append不可能
+		
+		$('#todohuken').append("<option value='東京都'>東京都</option>")
+		
+		if(${SALVO.addressArr[1] == '札幌市'}){
+			$('#sikuchouson').append("<option value='根室市'>根室市</option>")
+			}else if(${SALVO.addressArr[1] == '根室市'}){
+				$('#sikuchouson').append("<option value='札幌市'>札幌市</option>")
+				}
+		}
 
 
 
@@ -145,7 +166,8 @@ $(function(){
 	var sel_file
 	$('#input_mainImg').change(function(e){
 
-		alert('dddd')
+		
+		$('.mainImg').remove()
 		$('#mainImg').remove()
 		var file= e.target.files
 		var fileArr = Array.prototype.slice.call(file)
@@ -167,7 +189,7 @@ $(function(){
 			
 			reader.onload = function(e){
 					
-					var img_html = "<img src=\""+e.target.result+"\" class='imgImg' width='250px' height='250px'/>"				
+					var img_html = "<img src=\""+e.target.result+"\" class='imgImg mainImg' width='250px' height='250px'/>"				
 					$('.img_wrap').append(img_html)
 				}
 			reader.readAsDataURL(f)
@@ -226,6 +248,51 @@ $(function(){
 
 
 
+
+
+	
+	$(document).on('click','.delMSG',function(){
+
+		$(this).siblings('.originImg').remove()
+		$(this).css('display','none')
+		
+		})
+
+
+
+		
+		
+	
+	$(document).on('click','.deleteBtn', function(){
+
+		if(confirm('削除しますか？')){
+
+
+			$.ajax({
+
+					url:"${rootPath}/deletesal", data:{sequence:${SALVO.sequence}}, type:'post',
+					success:function(result){
+
+						alert(result)
+						document.location.replace('${rootPath}/')
+						
+						},error:function(){
+
+							alert('サーバーエラー')
+							return false
+							}
+				
+				})
+
+			
+			}
+
+		return false
+		})	
+		
+		
+		
+		
 
 
 
@@ -359,23 +426,23 @@ $(function(){
 					
 					<form:checkbox path="featureArr" value="夜間有人" label="夜間有人"/>
 
-					<input type="checkbox"  name="featureArr" value="訪問看護"/>
-					<label>訪問看護</label>
-					<input type="checkbox"  name="featureArr" value="個室あり"/>
-					<label>個室あり</label>
-					<input type="checkbox"  name="featureArr" value="ナースコール"/>
-					<label>ナースコール</label>
+					<form:checkbox path="featureArr" value="訪問看護" label="訪問看護"/>
+					
+					<form:checkbox path="featureArr" value="個室あり" label="個室あり"/>
+					
+					<form:checkbox path="featureArr" value="ナースコール" label="ナースコール"/>
+					
 					<br>
-					<input type="checkbox"  name="featureArr" value="入浴週3回"/>
-					<label>入浴週3回</label>
-					<input type="checkbox"  name="featureArr" value="館内禁煙"/>
-					<label>館内禁煙</label>
-					<input type="checkbox"  name="featureArr" value="交通便利"/>
-					<label>交通便利</label>
-					<input type="checkbox"  name="featureArr" value="外出自由"/>
-					<label>外出自由</label>
-					<input type="checkbox"  name="featureArr" value="アルコール可"/>	
-					<label>アルコール可</label>
+					<form:checkbox path="featureArr" value="入浴週3回" label="入浴週3回"/>
+					
+					<form:checkbox path="featureArr" value="館内禁煙" label="館内禁煙"/>
+					
+					<form:checkbox path="featureArr" value="交通便利" label="交通便利"/>
+					
+					<form:checkbox path="featureArr" value="外出自由" label="外出自由"/>
+					
+					<form:checkbox path="featureArr" value="アルコール可" label="アルコール可"/>	
+					
 					</div>
 					
 					
@@ -404,7 +471,7 @@ $(function(){
 				
 				<div class="img_wrap">
 					<c:if test="${not empty FILELIST}">
-					<img id="mainImg" src="${rootPath}/files/${FILELIST[0].file_upload_name }" class='Thumbnail imgImg' width='250px' height='250px'/>
+					<img id="mainImg" src="${rootPath}/files/${FILELIST[0].file_upload_name }" class='Thumbnail imgImg mainImg' width='250px' height='250px'/>
 					</c:if>
 				</div>
 				
@@ -417,7 +484,7 @@ $(function(){
 				<input id="input_imgs" type="file" name="file" multiple="multiple" accept="image/*"/>
 				</div>
 				
-				
+				<div style="color:red;">既存イメージチェックで削除</div>
 				<div class="Thumbnail allImgs_wrap">
 				
 				
@@ -426,8 +493,7 @@ $(function(){
 						
 							<span class="imgDelMSGSpan">
 							<img src="${rootPath}/files/${FILELIST.file_upload_name}" class='imgImg originImg' width='250px' height='250px'/>
-							<input type="hidden" class="fileCode" value="${FILELIST.file_code}"></input>
-							<span class="delMSG">&times;</span>
+							<input class="delMSG" type="checkbox" name="delFileList" value="${FILELIST.file_code}">							
 							</span>
 						</c:forEach>
 
@@ -444,7 +510,8 @@ $(function(){
 			</div>
 			<br>
 			
-		<button class="inputBtn" type="button">登録</button>	
+		<button class="inputBtn" type="button">修正</button>
+		<button class="deleteBtn" type="button">削除</button>	
 		</form:form>
 		</form>
 	</div>

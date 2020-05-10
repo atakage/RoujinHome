@@ -2,6 +2,7 @@ package com.jgm.roujin.persistence;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
@@ -40,6 +41,12 @@ public interface SalutariumDao {
 
 	@Select("SELECT * FROM tbl_salutarium WHERE username = #{username}")
 	List<SalutariumVO> findByUsername(String username);
+
+
+	int updateSal(SalutariumVO salVO);
+
+	@Delete("DELETE FROM tbl_salutarium WHERE sequence = #{sequence}")
+	int deleteSal(Long sequence);
 
 
 	

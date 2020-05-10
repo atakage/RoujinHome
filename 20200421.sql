@@ -73,7 +73,10 @@ CREATE TABLE tbl_file(
 sequence bigint not null,
 file_code varchar(10) not null unique,
 file_origin_name varchar(255),
-file_upload_name varchar(255)
+file_upload_name varchar(255),
+main_image int
 );
 
 ALTER table tbl_file add constraint FK_FILE_SEQ foreign key(sequence) REFERENCES tbl_salutarium(sequence) ON delete cascade;
+
+ALTER TABLE tbl_file ADD main_image int;

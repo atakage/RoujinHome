@@ -25,4 +25,11 @@
 	
 	</insert>
 	
+	
+	<update id="updateSal" parameterType="salutariumVO">
+	
+		UPDATE tbl_salutarium SET username=#{username},name=#{name},address=#{address},fee=#{fee},description=#{description},feature=#{feature}  WHERE sequence = #{sequence}
+	
+	</update>
+	
  </mapper>

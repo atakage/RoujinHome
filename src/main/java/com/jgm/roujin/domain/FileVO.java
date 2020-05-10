@@ -19,4 +19,5 @@ public class FileVO {
 	private String file_code;
 	private String file_origin_name;
 	private String file_upload_name;
+	private int main_image;
 }

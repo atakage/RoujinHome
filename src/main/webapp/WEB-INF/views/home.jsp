@@ -207,7 +207,12 @@ $(function(){
 		<div class="carousel-item<c:out value="${status.index == 0 ? ' active':''}"/>">
 			<div class="item">
 				<input class="sequence" type="hidden" value="${SALLIST.sequence}">
+				<c:if test="${not empty SALLIST.file_upload_name}">
 				<img src="${rootPath}/files/${SALLIST.file_upload_name}" class="img-thumbnail"   alt="test">
+				</c:if>
+				<c:if test="${empty SALLIST.file_upload_name}">
+				<img src="${rootPath}/resources/img/no-image.png" class="img-thumbnail"   alt="test">
+				</c:if>
 				<div class="infoBoxDiv">
 					<div class="salName">${SALLIST.name}</div>
 					<div class="salAddr">${SALLIST.address}</div>

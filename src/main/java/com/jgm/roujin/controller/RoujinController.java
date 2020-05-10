@@ -3,6 +3,8 @@ package com.jgm.roujin.controller;
 import java.security.Principal;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -12,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.jgm.roujin.domain.FileVO;
@@ -61,6 +64,8 @@ public class RoujinController {
 		
 		
 		
+		
+		log.debug("SALVO: " + salVO.toString());
 		
 		model.addAttribute("SALVO", salVO);
 		model.addAttribute("FILELIST", fileList);
@@ -114,7 +119,7 @@ public class RoujinController {
 	 * MultipartHttpServletRequestは分けて受ける
 	 */
 	@RequestMapping(value="/inputsal", method=RequestMethod.POST)
-	public String inputSal(SalutariumVO salutariumVO, MultipartHttpServletRequest file, Principal principal) {
+	public String inputSal(SalutariumVO salutariumVO, MultipartFile mainFile,  MultipartHttpServletRequest file, Principal principal) {
 		
 		log.debug("salutariumVO: " + salutariumVO.toString());
 		log.debug("FILE: " + file.toString());
@@ -124,6 +129,13 @@ public class RoujinController {
 		long sequence = salService.insertSal(salutariumVO, principal);
 		
 	
+		
+		//メインイメージアップロード
+		FileVO fileVO =  fileService.mainFileUp(mainFile, sequence);
+		if(fileVO != null) {
+		fileService.insertMainFile(fileVO);
+		}
+		
 		
 		
 		List<FileVO> fileList = fileService.filesUp(file,sequence);
@@ -194,6 +206,8 @@ public class RoujinController {
 		log.debug("st,ls: "+pagiVO.getStartList() +",,,," +pagiVO.getListSize());
 		
 		List<SalutariumVO> salList =  salService.selectByPagi(pagiVO.getStartList(), pagiVO.getListSize());
+		
+		if(salList.size() > 0) {
 		List<FileVO> fileList = fileService.findBySalList(salList);
 		
 		
@@ -216,6 +230,7 @@ public class RoujinController {
 				}
 			}
 			
+		}
 		}
 		
 		
@@ -251,6 +266,7 @@ public class RoujinController {
 		
 		List<SalutariumVO> salList =  salService.selectByPagiAddr(pagiVO.getStartList(), pagiVO.getListSize(),todohuken, sikuchouson);
 		
+		if(salList.size() > 0) {
 		List<FileVO> fileList = fileService.findBySalList(salList);
 		
 
@@ -271,14 +287,16 @@ public class RoujinController {
 			}
 			
 		}
+		}
 		
-
+		
+		String[] addressArr = {todohuken,sikuchouson};
 		
 		model.addAttribute("RESULTCOUNT", resultCount);
 		model.addAttribute("SALLIST", salList);
 		model.addAttribute("PAGIVO", pagiVO);
-		model.addAttribute("SIKUCHOUSON",sikuchouson);
-		model.addAttribute("TODOHUKEN",todohuken);
+
+		model.addAttribute("ADDRESSARR",addressArr);
 
 		
 		return "search_main";
@@ -331,6 +349,66 @@ public class RoujinController {
 	}
 	
 	
+	
+	
+	@RequestMapping(value="/updatesal", method=RequestMethod.POST)
+	public String updateSal(SalutariumVO salVO, MultipartFile mainFile, String[] delFileList, MultipartHttpServletRequest file, Principal principal) {
+		
+		
+		log.debug("SALVO: "+ salVO.toString());
+		log.debug("MAINFILE: "+mainFile.getOriginalFilename());
+		
+		
+		
+		
+		
+		
+		long sequence = salService.updateSal(salVO, principal);
+		
+		//メインイメージアップロード
+		FileVO fileVO =  fileService.mainFileUp(mainFile, sequence);
+		if(fileVO != null) {
+		fileService.insertMainFile(fileVO);
+		}
+		
+		//既存イメージ削除
+		if(delFileList != null) {
+			fileService.deleteFile(delFileList);
+		}
+		
+		
+		
+		List<FileVO> fileList = fileService.filesUp(file,sequence);
+		if(fileList != null) {
+		log.debug("FILELIST: " + fileList.toString());
+		fileService.insert(fileList);
+		}
+		
+		
+		
+		
+		
+		
+		
+		return "redirect:/";
+		
+	}
+	
+	
+	@ResponseBody
+	@RequestMapping(value="/deletesal", method=RequestMethod.POST, produces = "application/text;charset=utf8")
+	public String deleteSal(String sequence, Principal principal) {
+		
+		SalutariumVO salVO = salService.findBySeq(Long.valueOf(sequence));
+		
+		if(!principal.getName().equals(salVO.getUsername())) {
+			return "redirect:/";
+		}
+		
+		String resultMSG = salService.deleteSal(Long.valueOf(sequence));
+		
+		return resultMSG;
+	}
 
 
 }

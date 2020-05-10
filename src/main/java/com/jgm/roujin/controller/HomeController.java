@@ -28,6 +28,12 @@ public class HomeController {
 		
 		List<SalutariumVO> salList = salService.getPopSal();
 			
+		
+		log.debug("SALLIST: " + salList.toString());
+		
+		
+		
+		if(salList.size() > 0) {
 		List<FileVO> fileList = fileService.findBySalList(salList);
 		
 		
@@ -46,6 +52,7 @@ public class HomeController {
 				}
 			}
 			
+			}
 		}
 		
 		

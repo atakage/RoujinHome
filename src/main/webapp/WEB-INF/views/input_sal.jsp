@@ -55,6 +55,10 @@ button{
 	font-weight:bold;
 }
 
+.mainImgBoxDiv{
+	margin-bottom:5%;
+}
+
 </style>
 
 
@@ -89,7 +93,42 @@ $(function(){
 
 
 
+		//file
+	var sel_file
+	$('#input_mainImg').change(function(e){
 
+		
+		$('.mainImg').remove()
+		var file= e.target.files
+		var fileArr = Array.prototype.slice.call(file)
+
+
+		fileArr.forEach(function(f){
+
+			if(!f.type.match('image.*')){
+				alert('イメージのみアップロードできます')
+				return false
+				}
+
+			sle_file = f
+
+			var reader = new FileReader()
+
+			// readイベントが成功するたびに動作
+			
+			
+			reader.onload = function(e){
+					
+					var img_html = "<img src=\""+e.target.result+"\" class='imgImg mainImg' width='250px' height='250px'/>"				
+					$('.img_wrap').append(img_html)
+				}
+			reader.readAsDataURL(f)
+			
+			})
+		
+		
+		
+		})
 
 
 
@@ -100,7 +139,7 @@ $(function(){
 
 
 
-	// file
+	// files
 	var sel_files = []
 	$('#input_imgs').on("change", handleImgsFilesSelect)
 	
@@ -306,6 +345,32 @@ $(function(){
 			
 			<div>
 				<div class="title">施設の写真</div>
+				
+				
+				
+				
+				<div class="mainImgBoxDiv">
+				
+				<div>メインイメージ</div>
+				
+				<div>
+					<input id="input_mainImg" type="file" name="mainFile"  accept="image/*"/>
+				</div>
+				
+				<div class="img_wrap">
+					
+				</div>
+				
+				
+				</div>
+				
+				<div>イメージ</div>
+				
+				
+				
+				
+				
+				
 				<input id="input_imgs" type="file" name="file" multiple="multiple" accept="image/*"/>
 				
 				<div class="Thumbnail imgs_wrap">

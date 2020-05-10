@@ -164,6 +164,72 @@ public class FileService {
 	}
 
 
+	public FileVO mainFileUp(MultipartFile mainFile, long sequence) {
+		// TODO Auto-generated method stub
+		
+		
+		if(mainFile.getSize() < 1) return null;
+		
+		FileVO fileVO = new FileVO();
+		
+		
+		String file_code = fileDao.findMaxCode();
+		
+		
+		if(file_code == null) {
+			
+			file_code = "F0000";
+		}
+		
+		
+		
+		String upFileName = this.fileUp(mainFile);
+		
+		// create file_code
+		
+			try {
+				String file_code_subStr = file_code.substring(1);
+				
+				int file_code_plus = Integer.valueOf(file_code_subStr)+1;
+				
+				file_code = String.format("F%04d", file_code_plus);
+			
+			
+			
+				fileVO = FileVO.builder().file_origin_name(mainFile.getOriginalFilename()).
+						file_upload_name(upFileName).sequence(sequence).file_code(file_code).main_image(1).build();
+				
+
+				
+				log.debug("FILEVO: " + fileVO.toString());
+			} catch (Exception e) {
+				// TODO: handle exception
+				e.printStackTrace();
+				return null;
+			}
+			
+		
+		return fileVO;
+	}
+
+
+	public void insertMainFile(FileVO fileVO) {
+		// TODO Auto-generated method stub
+		
+		fileDao.deleteMainImgBySeq(fileVO.getSequence());
+		fileDao.insertMainFile(fileVO);
+		
+	}
+
+
+	public void deleteFile(String[] delFileList) {
+		// TODO Auto-generated method stub
+		
+		fileDao.deleteFile(delFileList);
+		
+	}
+
+
 	
 
 	

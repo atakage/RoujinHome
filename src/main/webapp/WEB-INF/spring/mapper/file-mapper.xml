@@ -17,9 +17,11 @@
 	
 	</foreach>
 	
+	ORDER BY main_image DESC
+	
 	</select>
 
-
+	
 
 	<insert id="insert" parameterType="list">
 	
@@ -31,5 +33,12 @@
 	</foreach>
 	
 	</insert>
+	
+	<delete id="deleteFile" parameterType="map">
+		DELETE FROM tbl_file WHERE file_code IN
+		<foreach collection="array" item="file_code" separator="," open="(" close=")">
+			#{file_code}
+		</foreach>
+	</delete>
 	
  </mapper>

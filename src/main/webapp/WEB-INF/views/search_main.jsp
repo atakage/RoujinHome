@@ -142,6 +142,39 @@ $(function(){
 
 
 
+	if(${ADDRESSARR[0] == '東京都' }){
+
+		// jqueryでは　　spring form tagが　append不可能
+		
+	
+		$('#todohuken').append("<option value='北海道'>北海道</option>")
+		
+		if(${ADDRESSARR[1] == '小平市'}){
+			$('#sikuchouson').append("<option value='町田市'>町田市</option>")
+			}else if(${ADDRESSARR[1] == '町田市'}){
+				$('#sikuchouson').append("<option value='小平市'>小平市</option>")	
+				}
+		}
+
+
+	if(${ADDRESSARR[0] == '北海道' }){
+
+		// jqueryでは　　spring form tagが　append不可能
+		
+		$('#todohuken').append("<option value='東京都'>東京都</option>")
+		
+		if(${ADDRESSARR[1] == '札幌市'}){
+			$('#sikuchouson').append("<option value='根室市'>根室市</option>")
+			}else if(${ADDRESSARR[1] == '根室市'}){
+				$('#sikuchouson').append("<option value='札幌市'>札幌市</option>")
+				}
+		}
+
+
+	
+
+
+
 	if($('#resultcount').text().length > 0){
 
 		$('.listAddr').css('font-weight','bold')
@@ -212,6 +245,9 @@ $(function(){
 
 <div class="container-fluid selectBoxDiv">
 <form action="${rootPath}/searchcenter" method="post" style="display: contents">
+	
+	<c:if test="${empty ADDRESSARR }">
+	
 	<div>
 		<select id="todohuken" name="todohuken">
 			<option value="北海道">北海道</option>
@@ -225,6 +261,25 @@ $(function(){
 			<option value='根室市'>根室市</option>
 		</select>
 	</div>
+	
+	</c:if>
+	
+	<c:if test="${not empty ADDRESSARR }">
+		<div>
+		<select id="todohuken">
+			<option value="${ADDRESSARR[0]}">${ADDRESSARR[0]}</option>
+		</select>
+		</div>
+		
+		<div>
+		<select id="sikuchouson">
+			<option value="${ADDRESSARR[1]}">${ADDRESSARR[1]}</option>
+		</select>
+		</div>			
+					
+	
+	</c:if>
+	
 	<div>
 		<button type="button" class="searchButton">探す</button>
 	</div>

@@ -79,3 +79,15 @@ checkboxとselect option、fileのせいでアップデート作業がめっち�
 
 未解決：アカウント修正や脱退、マイページ、 運営者用管理ページ, spring security inputsal submit post csrf invalid token,
 input_sal ページ　バリデーションチェック（施設名、住所）, 施設検索後 select value 維持
+
+
+
+
+------------------20200510--------------↓↓↓↓↓
+
+アップデートページ完了
+代表イメージが追加されて大幅修正
+
+
+未解決：アカウント修正や脱退、マイページ、 spring security inputsal submit post csrf invalid token,
+input_sal ページ　バリデーションチェック（施設名、住所）, 施設検索後 select value 維持, navi searchcenter
