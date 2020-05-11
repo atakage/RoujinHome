@@ -1,5 +1,7 @@
 package com.jgm.roujin.persistence;
 
+import java.util.List;
+
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Select;
 
@@ -13,5 +15,7 @@ public interface UserDao {
 
 	@Insert("INSERT INTO tbl_user(username, password, picture, enabled) VALUES(#{username}, #{password}, #{picture}, #{enabled})")
 	int insert(UserDetailsVO userVO);
+
+	List<UserDetailsVO> getAllUserList();
 
 }

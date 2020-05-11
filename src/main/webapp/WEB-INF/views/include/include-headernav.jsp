@@ -192,6 +192,10 @@ header {
 		<security:authorize access="hasRole('concern')">
 		<li class="nav-item"><a class="nav-link" href="${rootPath}/modianddelsal">施設の修正削除</a></li>
 		</security:authorize>
+		
+		<security:authorize access="hasRole('admin')">
+		<li class="nav-item"><a class="nav-link" href="${rootPath}/adminpage">会員管理</a></li>
+		</security:authorize>
 
 
 	</ul>

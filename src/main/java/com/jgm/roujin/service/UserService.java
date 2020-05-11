@@ -72,31 +72,9 @@ public class UserService {
 		return "SUCCESS";
 	}
 
-//	public String insertCon(UserDetailsVO userVO) {
-//		// TODO Auto-generated method stub
-//		userVO.setPassword(passwordEncoder.encode(userVO.getPassword()));
-//		userVO.setEnabled(true);
-//		
-//		
-//		
-//		
-//		log.debug("password: " + userVO.getPassword());
-//		
-//		
-//		//referenced テーブル
-//		 int ret = userDao.insert(userVO);
-//		 
-//		 
-//		 List<AuthorityVO> authList = new ArrayList();			
-//		 authList.add(AuthorityVO.builder().username(userVO.getUsername()).authority("concern").build());
-//		 
-//		 //Foreign Key Constraintのため参照されるデーターは後でINSERT
-//		 authDao.insert(authList);
-//		 
-//		 if(ret < 1) {
-//			 return "FAIL";
-//		 }
-//		return "SUCCESS";
-//	}
+	public List<UserDetailsVO> getAllUserList() {
+		// TODO Auto-generated method stub
+		return userDao.getAllUserList();
+	}
 
 }

@@ -39,5 +39,7 @@ public class UserDetailsVO implements UserDetails{
 
 	private String picture;
 	private String grade;
+	
+	private String authority;
 
 }

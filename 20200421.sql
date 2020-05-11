@@ -14,6 +14,10 @@ enabled boolean
 select * from tbl_user;
 select * from authorities;
 
+SELECT tbl_user.username, authorities.authority from tbl_user inner join authorities
+on tbl_user.username = authorities.username;
+
+
 delete from tbl_user where username = 'con';
 
 delete from authorities where username = 'user';
@@ -30,6 +34,7 @@ CREATE TABLE authorities(
 	authority varchar(50)
 );
 
+update authorities set authority = 'ROLE_admin' where username='admin';
 
 INSERT INTO tbl_user(username,password) VALUES('user','0');
 INSERT INTO authorities(username,authority) VALUES('user','admin');
@@ -80,3 +85,5 @@ main_image int
 ALTER table tbl_file add constraint FK_FILE_SEQ foreign key(sequence) REFERENCES tbl_salutarium(sequence) ON delete cascade;
 
 ALTER TABLE tbl_file ADD main_image int;
+
+

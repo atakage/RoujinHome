@@ -1,10 +1,13 @@
 package com.jgm.roujin.controller;
 
 import java.security.Principal;
+import java.util.Collection;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -408,6 +411,36 @@ public class RoujinController {
 		String resultMSG = salService.deleteSal(Long.valueOf(sequence));
 		
 		return resultMSG;
+	}
+	
+	
+	
+	
+	@RequestMapping(value="/adminpage", method=RequestMethod.GET)
+	public String adminPage(Authentication authentication, Model model) {
+		
+		// authorityは複数
+		List<? extends GrantedAuthority> authorityList = (List<? extends GrantedAuthority>) authentication.getAuthorities();	
+		GrantedAuthority authority = authorityList.get(0);
+		
+		if(!authority.getAuthority().equals("ROLE_admin")) {
+			return "redirect:/";
+		}
+		
+		
+		List<UserDetailsVO> userList = userService.getAllUserList();
+
+		for(int i=0; i < userList.size(); i++) {
+			UserDetailsVO vo = userList.get(i);
+			if(vo.getAuthority().equals("ROLE_admin")) {
+				userList.remove(i);
+				break;
+			}
+		}
+		
+		model.addAttribute("USERLIST", userList);
+		
+		return "admin_page";
 	}
 
 

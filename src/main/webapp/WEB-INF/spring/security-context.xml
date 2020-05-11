@@ -29,6 +29,7 @@
 	<security:http auto-config="true" use-expressions="true">
 		<security:csrf disabled="true"/>
 		
+		<security:intercept-url pattern="/admin" access="hasRole('admin')"/>
 		<security:intercept-url pattern="/updatesal" access="hasRole('concern')"/>
 		<security:intercept-url pattern="/modianddelsal" access="hasRole('concern')"/>
 		<security:intercept-url pattern="/inputsal" access="hasRole('concern')"/>
