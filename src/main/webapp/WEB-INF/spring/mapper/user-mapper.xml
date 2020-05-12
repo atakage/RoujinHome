@@ -7,7 +7,7 @@
 
 
 	<select id="getAllUserList" resultType="userDetailsVO">
-		SELECT tbl_user.username, authorities.authority FROM tbl_user
+		SELECT tbl_user.username, tbl_user.picture, tbl_user.enabled, authorities.authority FROM tbl_user
 		INNER JOIN authorities ON tbl_user.username = authorities.username
 	</select>
 	

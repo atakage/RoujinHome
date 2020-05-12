@@ -77,4 +77,27 @@ public class UserService {
 		return userDao.getAllUserList();
 	}
 
+	public String enabledUser(String username, String enabledStr) {
+		// TODO Auto-generated method stub
+		boolean enabled;
+		if(enabledStr.equals("true")) {
+			enabled = false;
+		}else{
+			enabled = true;
+		}
+		
+		
+		log.debug("ENABLED: " + enabled);
+		
+		int ret = userDao.enabledUser(username, enabled);
+		
+		log.debug("RET: " + ret);
+		
+		if(ret > 0) {
+			return "権限設定成功";
+		}
+		
+		return "権限設定失敗";
+	}
+
 }

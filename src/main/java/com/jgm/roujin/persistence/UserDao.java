@@ -3,10 +3,11 @@ package com.jgm.roujin.persistence;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Insert;
+import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
 
 import com.jgm.roujin.domain.UserDetailsVO;
-import com.jgm.roujin.domain.UserVO;
 
 public interface UserDao {
 
@@ -17,5 +18,8 @@ public interface UserDao {
 	int insert(UserDetailsVO userVO);
 
 	List<UserDetailsVO> getAllUserList();
+
+	@Update("UPDATE tbl_user SET enabled = #{enabled} WHERE username = #{username}")
+	int enabledUser(@Param("username")String username, @Param("enabled")boolean enabled);
 
 }

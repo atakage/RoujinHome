@@ -442,6 +442,18 @@ public class RoujinController {
 		
 		return "admin_page";
 	}
+	
+	
+	@ResponseBody
+	@RequestMapping(value="/userenabled", method=RequestMethod.POST, produces = "application/text;charset=utf8")
+	public String userEnabled(String username, String enabled) {
+
+		String resultMSG = userService.enabledUser(username,enabled);
+		
+		log.debug("RESULTMSG: " + resultMSG);
+		
+		return resultMSG;
+	}
 
 
 }
