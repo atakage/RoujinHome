@@ -7,7 +7,7 @@
 
 
 
-
+<script src="${rootPath}/resources/js/latedlist.js"></script>
 
 
 <script
@@ -227,6 +227,9 @@ header {
 </div>
 
 
+<ul id="latelyViewItemList_ul">
+	<li><a href="#" onclick="javascript:moveItemViewPage(72,'79666b13-a3f6-473b-8dc8-b7993ca0f03205_d75b4a391c1b172dd6926765d16fea11')">aa</a></li>
+</ul>
 
 
 

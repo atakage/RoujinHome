@@ -67,14 +67,14 @@ $(function(){
 		var checkBoxTd = $(this).parents('.checkBoxTd');	
 		var username = checkBoxTd.siblings('.username').text()
 		
-		alert(enabled)
+		
 		
 			$.ajax({
 				url:"${rootPath}/userenabled", data:{username:username, enabled:enabled}, type:'post',
 				success:function(result){
 
 						alert(result)
-						document.location.replace('${rootPath}/adminpage')
+						
 					
 					},error:function(){
 						alert('サーバーエラー')
@@ -82,6 +82,10 @@ $(function(){
 				})
 		
 		})
+
+
+
+
 	
 	
 })
@@ -95,13 +99,7 @@ $(function(){
 <div class="container-fluid selectAndTableBoxDiv">
 
 
-	<div>
-		<select>
-			<option value="all">all</option>
-			<option value="user">user</option>
-			<option value="concern">concern</option>
-		</select>
-	</div>
+
 	
 	<div>
 		<table class="table listTable">
