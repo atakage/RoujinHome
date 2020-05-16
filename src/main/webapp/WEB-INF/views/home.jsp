@@ -123,10 +123,12 @@ $(function(){
 
 
 
-	$(document).on('click','.item',function(){
+	$(document).on('click','.salItem',function(){
 
 
-
+		
+		moveItemViewPage($(this).find('.sequence').val(), $(this).find('.file_upload_name').val())
+		
 		document.location.href="${rootPath}/view?sequence="+$(this).find('.sequence').val()
 
 
@@ -205,10 +207,11 @@ $(function(){
 		
 		
 		<div class="carousel-item<c:out value="${status.index == 0 ? ' active':''}"/>">
-			<div class="item">
+			<div class="item salItem">
 				<input class="sequence" type="hidden" value="${SALLIST.sequence}">
 				<c:if test="${not empty SALLIST.file_upload_name}">
 				<img src="${rootPath}/files/${SALLIST.file_upload_name}" class="img-thumbnail"   alt="test">
+				<input class="file_upload_name" type="hidden" value="${SALLIST.file_upload_name}">
 				</c:if>
 				<c:if test="${empty SALLIST.file_upload_name}">
 				<img src="${rootPath}/resources/img/no-image.png" class="img-thumbnail"   alt="test">

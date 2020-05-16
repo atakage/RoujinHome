@@ -168,7 +168,7 @@ $(function(){
 	
 	$('.featureContent').each(function(index){ 
 
-
+		
 		
 		if($(this).text().trim() == '夜間有人'){
 			$(this).attr('data-original-title','夜もスタッフが常駐している施設')

@@ -211,6 +211,7 @@ $(function(){
 		$(document).on('click','.listBox',function(){
 
 
+			moveItemViewPage($(this).find('.sequence').val(), $(this).find('.file_upload_name').val())
 			document.location.href="${rootPath}/view?sequence="+$(this).find('.sequence').val()
 			
 			})
@@ -303,6 +304,7 @@ $(function(){
 			
 			<div class="listBox">
 					<input class="sequence" type="hidden" value="${SALLIST.sequence }">
+					<input class="file_upload_name" type="hidden" value="${SALLIST.file_upload_name}">
 					<div class="listName">${SALLIST.name}</div>
 					<div class="listView">${SALLIST.view}view</div>
 			<div class="imgAndInfoBoxDiv">

@@ -1,12 +1,12 @@
 
 var LATELY_VIEW_ITEM_EXPIRATION_DATE = 1
-var LATELY_VIEW_ITEM_MAX_SAVE_COUNT = 5
-var LATELY_VIEW_ITEM_PAGING_SIZE = 1
+var LATELY_VIEW_ITEM_MAX_SAVE_COUNT = 3
+var LATELY_VIEW_ITEM_PAGING_SIZE = 3
 
 
 
 function isNull(obj){
-	if(obj == '' || obj == null || obj == undefined || obj == NaN){
+	if(obj == '' || obj == null || obj == undefined || obj == NaN || obj == 'null'){
 		return true
 	}else{
 		return false
@@ -34,7 +34,7 @@ function initLatelyViewItemList(){
 	if(isNull(getItemLocalStorage('latelyViewItemList'))){
 		
 		setLocalStorage('latelyViewItemList', null)
-		$('ul#latelyViewItemList_ul').append('<li>最近見た施設なし</li>')
+		$('ul#latelyViewItemList_ul').append('<li class="latelyViewNoneMSG">なし</li>')
 		
 	}else{
 		
@@ -106,6 +106,66 @@ function moveItemViewPage(itemSeq, itemImagePath){
 	}
 	
 	location.href="/roujin/view?sequence="+itemSeq
+}
+
+
+
+
+function LatelyViewItemRender(page){
+	
+	$('ul#latelyViewItemList_ul').empty()
+	
+	if(getItemLocalStorage('latelyViewItemList') != 'null' || !isNull(getItemLocalStorage('latelyViewItemList'))){
+		
+		// X
+		var latelyViewItemList = JSON.parse(getItemLocalStorage('latelyViewItemList'))
+		var length = latelyViewItemList.length
+		var maxPage = length / LATELY_VIEW_ITEM_PAGING_SIZE
+		
+		// X
+		$('div#latelyViewItemListPaging_div').css('display','block')
+		$('strong#nowLatelyViewItemPage_strong').text(page)
+		$('span#totalLatelyViewItemPage_span').text(Math.ceil(maxPage))
+		
+		/*
+		for(var i = ((page-1) * LATELY_VIEW_ITEM_PAGING_SIZE); i  < (page*LATELY_VIEW_ITEM_PAGING_SIZE); i++){
+			
+			if(!isNull(latelyViewItemList[i])){
+				$('ul#latelyViewItemList_ul').append($('<li>').append($('<a>').attr('href','/roujin/view?sequence='+latelyViewItemList[i].itemSeq).append($('<img>').attr('src','/roujin/files/'+latelyViewItemList[i].itemImagePath))))
+			}
+		}
+		*/
+		
+		for(var i=0; i < length; i++){
+
+			$('ul#latelyViewItemList_ul').append($('<li>').append($('<a>').attr('href','/roujin/view?sequence='+latelyViewItemList[i].itemSeq).append($("<img class='latelyViewImg'>").attr('src','/roujin/files/'+latelyViewItemList[i].itemImagePath))))
+	
+		}
+		
+		
+		
+	}else{
+		$('div#latelyViewItemListPaging_div').css('display','none')
+	}
+}
+
+
+//X
+function latelyViewItemPagingPlusMinus(type){
+	
+	if(type == 'minus'){
+		if(Number($('strong#nowLatelyViewItemPage_strong').text()) > 1){
+			$('strong#nowLatelyViewItemPage_strong').text(Number($('strong#nowLatelyViewItemPage_strong').text())-1)
+			
+			LatelyViewItemRender($('strong#nowLatelyViewItemPage_strong').text())
+		}
+	}else{
+		if(Number($('strong#nowLatelyViewItemPage_strong').text()) < Number($('span#totalLatelyViewItemPage_span').text())){
+			$('strong#nowLatelyViewItemPage_strong').text(Number($('strong#nowLatelyViewItemPage_strong').text())+1)
+			
+			LatelyViewItemRender($('strong#nowLatelyViewItemPage_strong').text())
+		}
+	}
 }
 
 

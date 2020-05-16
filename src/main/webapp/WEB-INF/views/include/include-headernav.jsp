@@ -13,6 +13,8 @@
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 
+  
+  
 <!-- Latest compiled and minified CSS -->
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
@@ -20,6 +22,11 @@
 <!-- jQuery library -->
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+<script
+  src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"
+  integrity="sha256-VazP97ZCwtekAsvgPBSUwPFKdrwD3unUfSGVYrahUqU="
+  crossorigin="anonymous"></script>
 
 <!-- Popper JS -->
 <script
@@ -106,12 +113,87 @@ header {
 }
 
 
+#latelyViewItemListPaging_div{
+	border: 2px solid limegreen;
+	position: absolute;
+    z-index: 20;
+    text-align: center;
+    right:50px;
+    top:250px;
+}
 
+#latelyViewItemList_ul{
+	list-style: none;
+	padding:0;
+	margin:0;
+}
+
+#nowLatelyViewItemPage_strong{
+	display:none;
+}
+
+#totalLatelyViewItemPage_span{
+	display:none;
+}
+
+.latelyViewImg{
+	width: 100px;
+	height: 100px;
+}
+
+.latelyViewTitle{
+	background-color:limegreen;
+	font-size: small;
+	font-weight: bold;
+}
+
+.emptyLocalStorage{
+	font-size: large;
+	font-weight: bold;
+	background-color: white;
+}
+
+.emptyLocalStorage:hover{
+	cursor: pointer;
+}
+
+.latelyViewNoneMSG{
+	background-color: limegreen;
+	font-weight:bold;
+	color: white;
+}
 
 </style>
 
 <script>
 	$(function() {
+
+
+
+		var floatPosition = parseInt($('#latelyViewItemListPaging_div').css('top'))
+		
+		$(window).scroll(function(){
+
+				var scrollTop = $(window).scrollTop()
+				var newPosition = scrollTop + floatPosition + 'px'
+				
+				// required jqueryUI cdn
+				$('#latelyViewItemListPaging_div').stop().animate({'top':newPosition},{'duration':500, 'easing':'easeInOutCubic'})
+				
+			
+			}).scroll()
+
+
+		
+		$(document).on('click','.emptyLocalStorage',function(){
+
+			removeLocalStorage('latelyViewItemList')
+			$('ul#latelyViewItemList_ul').empty()
+			$('ul#latelyViewItemList_ul').append('<li class="latelyViewNoneMSG">なし</li>')
+			
+			})
+
+		
 
 		$(document).on('mouseenter', '.sisetsu', function() {
 
@@ -226,10 +308,14 @@ header {
 
 </div>
 
+<div id="latelyViewItemListPaging_div">
+	
+	<div class="latelyViewTitle">最近見た施設<a class="emptyLocalStorage">&times;</a></div>
+	<ul id="latelyViewItemList_ul">
 
-<ul id="latelyViewItemList_ul">
-	<li><a href="#" onclick="javascript:moveItemViewPage(72,'79666b13-a3f6-473b-8dc8-b7993ca0f03205_d75b4a391c1b172dd6926765d16fea11')">aa</a></li>
-</ul>
-
+	</ul>
+	<strong id="nowLatelyViewItemPage_strong"></strong>
+	<span id="totalLatelyViewItemPage_span"></span>
+</div>
 
 

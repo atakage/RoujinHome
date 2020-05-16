@@ -91,3 +91,15 @@ input_sal ページ　バリデーションチェック（施設名、住所）,
 
 未解決：アカウント修正や脱退、マイページ、 spring security inputsal submit post csrf invalid token,
 input_sal ページ　バリデーションチェック（施設名、住所）, 施設検索後 select value 維持, navi searchcenter
+
+
+
+
+------------------20200516--------------↓↓↓↓↓
+
+最近見た施設機能完成
+あとは未解決に残っている問題の修正
+
+
+未解決：アカウント修正や脱退、マイページ、 spring security inputsal submit post csrf invalid token,
+input_sal ページ　バリデーションチェック（施設名、住所）
