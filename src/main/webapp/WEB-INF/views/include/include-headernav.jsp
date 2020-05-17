@@ -107,9 +107,16 @@ header {
 	text-decoration: underline;
 }
 
+.buttonSikuchouson{
+	
+	color:black;
+}
+
 .buttonSikuchouson:hover{
 	font-weight: bold;
 	cursor: pointer;
+	text-decoration: none;
+	color:black;
 }
 
 
@@ -292,16 +299,16 @@ header {
 		<a class="navTodohuken">北海道</a>
 		</div>
 		<div class="container-fluid navSikuchouson">
-			<a class="container-fluid buttonSikuchouson">札幌市</a>
-			<a class="container-fluid buttonSikuchouson">根室市</a>
+			<a class="container-fluid buttonSikuchouson" href="${rootPath}/searchcenteraddr?todohuken=北海道&sikuchouson=札幌市">札幌市</a>
+			<a class="container-fluid buttonSikuchouson" href="${rootPath}/searchcenteraddr?todohuken=北海道&sikuchouson=根室市">根室市</a>
 		</div>
 		<br>
 		<div class="container-fluid">
 		<a class="navTodohuken">東京都</a>
 		</div>
 		<div class="container-fluid navSikuchouson">
-			<a class="container-fluid buttonSikuchouson">小平市</a>
-			<a class="container-fluid buttonSikuchouson">町田市</a>
+			<a class="container-fluid buttonSikuchouson" href="${rootPath}/searchcenteraddr?todohuken=東京都&sikuchouson=小平市">小平市</a>
+			<a class="container-fluid buttonSikuchouson" href="${rootPath}/searchcenteraddr?todohuken=東京都&sikuchouson=町田市">町田市</a>
 		</div>
 		<br>
 	</div>
