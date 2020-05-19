@@ -257,7 +257,7 @@ header {
 <header class="container-fluid">
 
 	<div class="container-fluid headerDiv">
-		行くのが楽しみ <img src="${rootPath}/resources/img/header_image.png"
+		老人ホームサーチ <img src="${rootPath}/resources/img/header_image.png"
 			width="200px" height="200px">
 	</div>
 </header>

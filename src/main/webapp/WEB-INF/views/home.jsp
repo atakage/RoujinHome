@@ -219,7 +219,7 @@ $(function(){
 				<div class="infoBoxDiv">
 					<div class="salName">${SALLIST.name}</div>
 					<div class="salAddr">${SALLIST.address}</div>
-					<div class="salFee">${SALLIST.fee}円</div>
+					<div class="salFee">月${SALLIST.fee}円</div>
 				</div>
 			</div>	
 		</div>

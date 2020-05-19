@@ -318,7 +318,7 @@ $(function(){
 			
 				<div class="infoBox">
 				<div class="listAddr">${SALLIST.address}</div>
-				<div class="listFee">${SALLIST.fee}円</div>
+				<div class="listFee">月${SALLIST.fee}円</div>
 				</div>
 				
 			</div>
