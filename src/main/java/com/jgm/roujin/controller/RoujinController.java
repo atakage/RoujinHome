@@ -332,10 +332,7 @@ public class RoujinController {
 		
 		
 		if(!principal.getName().equals(salVO.getUsername())) {
-			
-			//redirect attribute!!
-			
-			
+
 			return "redirect:/";
 		}
 		
@@ -362,7 +359,12 @@ public class RoujinController {
 		log.debug("MAINFILE: "+mainFile.getOriginalFilename());
 		
 		
+		SalutariumVO checkSalVO = salService.findBySeq(Long.valueOf(salVO.getSequence()));
 		
+		if(!principal.getName().equals(checkSalVO.getUsername())) {
+	
+			return "redirect:/";
+		}
 		
 		
 		

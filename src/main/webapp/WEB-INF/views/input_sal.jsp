@@ -271,11 +271,9 @@ $(function(){
 	<div class="head">施設登録</div>
 
 	<div class="form-group inputBox">
-		<form method="post" enctype="multipart/form-data">
+		<form action="${rootPath}/inputsal?${_csrf.parameterName}=${_csrf.token}" method="post" enctype="multipart/form-data">
 		
-			
-			<input type="hidden" name="${_csrf.parameterName }" value="${_csrf.token }">
-			
+		
 			
 			<div>
 				<div class="title">施設名</div>

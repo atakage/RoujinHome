@@ -156,7 +156,7 @@ public class SalutariumService {
 			
 			
 			
-			log.debug("updatesal: " + salVO.getFeature());
+			log.debug("updatesal1: " + salVO.getFeature());
 			if(salVO.getFeatureArr().length > 0) {
 			salVO.setFeature(Arrays.toString(salVO.getFeatureArr()));
 			log.debug("updatesal2: " + salVO.getFeature());
@@ -172,7 +172,7 @@ public class SalutariumService {
 			e.printStackTrace();
 		}
 		
-		
+		log.debug("SALVOBEFOREUPDATE: " + salVO.toString());
 		
 		 int ret = salDao.updateSal(salVO); 
 		 

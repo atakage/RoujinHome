@@ -82,8 +82,10 @@ public class UserService {
 		boolean enabled;
 		if(enabledStr.equals("true")) {
 			enabled = false;
+			enabledStr = "false";
 		}else{
 			enabled = true;
+			enabledStr = "true";
 		}
 		
 		
@@ -91,10 +93,8 @@ public class UserService {
 		
 		int ret = userDao.enabledUser(username, enabled);
 		
-		log.debug("RET: " + ret);
-		
 		if(ret > 0) {
-			return "権限設定成功";
+			return enabledStr;
 		}
 		
 		return "権限設定失敗";

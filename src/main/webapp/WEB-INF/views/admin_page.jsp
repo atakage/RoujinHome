@@ -63,17 +63,27 @@ $(function(){
 
 	$('.enabledCheckBox').change(function(){
 
+		var me = this
 		var enabled = $(this).val()
+		
+
+		 alert(enabled)
 		var checkBoxTd = $(this).parents('.checkBoxTd');	
 		var username = checkBoxTd.siblings('.username').text()
 		
 		
 		
 			$.ajax({
-				url:"${rootPath}/userenabled", data:{username:username, enabled:enabled}, type:'post',
+				url:"${rootPath}/userenabled", data:{username:username, enabled:enabled, '${_csrf.parameterName}':'${_csrf.token}'}, type:'post',
 				success:function(result){
 
-						alert(result)
+						if(result == '権限設定失敗'){
+								alert(result)
+							}else{
+								
+								$(me).val(result)
+								
+								}
 						
 					
 					},error:function(){

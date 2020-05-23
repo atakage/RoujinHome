@@ -270,7 +270,7 @@ $(function(){
 
 			$.ajax({
 
-					url:"${rootPath}/deletesal", data:{sequence:${SALVO.sequence}}, type:'post',
+					url:"${rootPath}/deletesal", data:{sequence:${SALVO.sequence},'${_csrf.parameterName}':'${_csrf.token}'}, type:'post',
 					success:function(result){
 
 						alert(result)
@@ -385,12 +385,12 @@ $(function(){
 	<div class="head">施設修正削除</div>
 
 	<div class="form-group inputBox">
-		<form method="post" enctype="multipart/form-data">
-			<form:form modelAttribute="SALVO">
+		<form action="${rootPath}/updatesal?${_csrf.parameterName}=${_csrf.token }" method="post" enctype="multipart/form-data">
+			<form:form method="post" modelAttribute="SALVO">
 		
 			
-			<input type="hidden" name="${_csrf.parameterName }" value="${_csrf.token }">
 			
+			<input type="hidden" name="sequence" value="${SALVO.sequence}">
 			
 			<div>
 				<div class="title">施設名</div>
