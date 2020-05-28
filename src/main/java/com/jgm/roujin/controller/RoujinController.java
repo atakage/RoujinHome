@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.jgm.roujin.domain.FileVO;
 import com.jgm.roujin.domain.PaginationVO;
@@ -28,6 +29,7 @@ import com.jgm.roujin.service.FileService;
 import com.jgm.roujin.service.PaginationService;
 import com.jgm.roujin.service.SalutariumService;
 import com.jgm.roujin.service.UserService;
+import com.jgm.roujin.socket.EchoHandler;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -45,6 +47,7 @@ public class RoujinController {
 	private final FileService fileService;
 	private final SalutariumService salService;
 	private final PaginationService pagiService;
+	private final EchoHandler handler;
 	
 	
 	@ModelAttribute("userVO")
@@ -122,7 +125,7 @@ public class RoujinController {
 	 * MultipartHttpServletRequestは分けて受ける
 	 */
 	@RequestMapping(value="/inputsal", method=RequestMethod.POST)
-	public String inputSal(SalutariumVO salutariumVO, MultipartFile mainFile,  MultipartHttpServletRequest file, Principal principal) {
+	public String inputSal(SalutariumVO salutariumVO, MultipartFile mainFile,  MultipartHttpServletRequest file, Principal principal, RedirectAttributes redirectAttributes) {
 		
 		log.debug("salutariumVO: " + salutariumVO.toString());
 		log.debug("FILE: " + file.toString());
@@ -150,7 +153,8 @@ public class RoujinController {
 		}
 		
 		
-
+		handler.insertNotify(salutariumVO.getName());
+		
 		
 		return "redirect:/";
 	}

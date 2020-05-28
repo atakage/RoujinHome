@@ -69,7 +69,7 @@ delete from tbl_salutarium where sequence = 1;
 delete from tbl_salutarium;
 delete from tbl_file;
 
-drop table tbl_file;
+
 
 use roujin;
 
@@ -85,5 +85,7 @@ main_image int
 ALTER table tbl_file add constraint FK_FILE_SEQ foreign key(sequence) REFERENCES tbl_salutarium(sequence) ON delete cascade;
 
 ALTER TABLE tbl_file ADD main_image int;
+
+SELECT * FROM tbl_qa;
 
 

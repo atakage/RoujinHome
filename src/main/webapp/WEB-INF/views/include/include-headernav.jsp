@@ -36,7 +36,7 @@
 <script
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
 
-
+<script src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.4.0/sockjs.min.js"></script>
 
 <style>
 .loginDiv {
@@ -170,11 +170,45 @@ header {
 	color: white;
 }
 
+.alertBoxDiv{
+	border-radius:7px;
+	position: fixed;
+	left:50px;
+	bottom:50px;
+	z-index: 10;
+	background-color: green;
+    color: white;
+
+}
+
+
+
 </style>
 
 <script>
 	$(function() {
 
+
+		
+
+
+		
+		let sock = new SockJS('http://localhost:8084/roujin/echo')
+		sock.onmessage = onMessage
+
+		function onMessage(msg){
+
+			$('.alertBoxDiv').append("新しい施設が登録されました '<b>" + msg.data + "</b>'" )
+
+			setTimeout(function(){
+
+				$('.alertBoxDiv').empty()
+				
+				},10000)
+			
+			}
+
+		
 
 
 		var floatPosition = parseInt($('#latelyViewItemListPaging_div').css('top'))
@@ -285,6 +319,8 @@ header {
 		<security:authorize access="hasRole('admin')">
 		<li class="nav-item"><a class="nav-link" href="${rootPath}/adminpage">会員管理</a></li>
 		</security:authorize>
+		
+		<li class="nav-item"><a class="nav-link" href="${rootPath}/v2/kaigoqa">介護Q&A</a></li>
 
 
 	</ul>
@@ -325,4 +361,6 @@ header {
 	<span id="totalLatelyViewItemPage_span"></span>
 </div>
 
+<div class="alertBoxDiv">
 
+</div>
