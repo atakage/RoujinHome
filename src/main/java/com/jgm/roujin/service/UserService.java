@@ -100,4 +100,11 @@ public class UserService {
 		return "権限設定失敗";
 	}
 
+	public String findPicture(String username) {
+		// TODO Auto-generated method stub
+		
+		return userDao.findPicture(username);
+		
+	}
+
 }

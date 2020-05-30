@@ -22,4 +22,7 @@ public interface UserDao {
 	@Update("UPDATE tbl_user SET enabled = #{enabled} WHERE username = #{username}")
 	int enabledUser(@Param("username")String username, @Param("enabled")boolean enabled);
 
+	@Select("SELECT picture FROM tbl_user WHERE username = #{username}")
+	String findPicture(String username);
+
 }

@@ -86,6 +86,11 @@ ALTER table tbl_file add constraint FK_FILE_SEQ foreign key(sequence) REFERENCES
 
 ALTER TABLE tbl_file ADD main_image int;
 
+use roujin;
+
 SELECT * FROM tbl_qa;
+SELECT * FROM hibernate_sequence;
+
+delete from tbl_qa;
 
 

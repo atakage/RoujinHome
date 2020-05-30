@@ -1,6 +1,7 @@
 package com.jgm.roujin.service;
 
 import java.io.IOException;
+import java.util.List;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -8,6 +9,7 @@ import org.jsoup.select.Elements;
 import org.springframework.stereotype.Service;
 
 import com.jgm.roujin.domain.CrawlVO;
+import com.jgm.roujin.domain.QaVO;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -80,4 +82,8 @@ public class KaigoQAService {
 		}//while
 		
 	}
+
+
+
+	
 }

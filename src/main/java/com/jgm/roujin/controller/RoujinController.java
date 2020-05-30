@@ -23,10 +23,12 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.jgm.roujin.domain.FileVO;
 import com.jgm.roujin.domain.PaginationVO;
+import com.jgm.roujin.domain.QaVO;
 import com.jgm.roujin.domain.SalutariumVO;
 import com.jgm.roujin.domain.UserDetailsVO;
 import com.jgm.roujin.service.FileService;
 import com.jgm.roujin.service.PaginationService;
+import com.jgm.roujin.service.SalQAService;
 import com.jgm.roujin.service.SalutariumService;
 import com.jgm.roujin.service.UserService;
 import com.jgm.roujin.socket.EchoHandler;
@@ -48,6 +50,7 @@ public class RoujinController {
 	private final SalutariumService salService;
 	private final PaginationService pagiService;
 	private final EchoHandler handler;
+	private final SalQAService salQAService;
 	
 	
 	@ModelAttribute("userVO")
@@ -68,13 +71,16 @@ public class RoujinController {
 		
 		List<FileVO> fileList = fileService.findBySeq(Long.valueOf(sequence));
 		
-		
+		List<QaVO> qaList = salQAService.findBySeq(Long.valueOf(sequence));
+
+		 
 		
 		
 		log.debug("SALVO: " + salVO.toString());
 		
 		model.addAttribute("SALVO", salVO);
 		model.addAttribute("FILELIST", fileList);
+		model.addAttribute("QALIST",qaList);
 		
 		return "view";
 	}

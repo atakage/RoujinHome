@@ -28,7 +28,7 @@
 	</bean>
 
 	
-	<bean id="entityManagerFactoryBean" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
+	<bean id="entityManagerFactory" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
 		<property name="dataSource" ref="hiber"/>
 		<property name="packagesToScan" value="com.jgm.roujin.domain"/>
 		<property name="jpaVendorAdapter">
@@ -45,5 +45,5 @@
 			</props>
 		</property>
 	</bean>
-	<jpa:repositories base-package="com.jgm.roujin.repository"/>
+	<jpa:repositories base-package="com.jgm.roujin.persistence"/>
 </beans>

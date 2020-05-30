@@ -103,3 +103,9 @@ input_sal ページ　バリデーションチェック（施設名、住所）,
 
 未解決：アカウント修正や脱退、マイページ、 spring security inputsal submit post csrf invalid token,
 input_sal ページ　バリデーションチェック（施設名、住所）
+
+
+
+----------------------追加予定---------↓↓↓↓↓
+
+socket活用したアラート, Crawling Q&A, 施設QA

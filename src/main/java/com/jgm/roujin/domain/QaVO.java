@@ -34,11 +34,16 @@ public class QaVO {
 	private long p_id;
 	
 	@Column(name="sal_sequence", nullable = false)
-	private long sal_sequence;
+	private long salSequence;
 	
 	@Column(name="username", columnDefinition = "VARCHAR(10)", nullable = false)
 	private String username;
 	
+	@Column(name="picture", columnDefinition = "VARCHAR(1000)", nullable = true)
+	private String picture;
+	
 	@Column(name="content", columnDefinition = "VARCHAR(2000)", nullable = true)
 	private String content;
+	
+	
 }
