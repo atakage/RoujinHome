@@ -204,12 +204,13 @@ $(function(){
 	$('.qaInputBtn').click(function(){
 
 		var sal_sequence = ${SALVO.sequence}
+		var name = '${SALVO.name}'
 		var content = $('.content').val()
 
 
 		$.ajax({
 
-			url:'${rootPath}/v2/qainput', data:{salSequence:sal_sequence, content:content, '${_csrf.parameterName}':'${_csrf.token}'}, type:'post',
+			url:'${rootPath}/v2/qainput', data:{salSequence:sal_sequence, content:content, name:name, '${_csrf.parameterName}':'${_csrf.token}'}, type:'post',
 			success:function(result){
 					if(result == 'ONLYUSER'){
 						alert('一般ユーザーのみ登録できます')

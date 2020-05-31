@@ -1,5 +1,7 @@
 package com.jgm.roujin.controller;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import org.springframework.security.core.GrantedAuthority;
@@ -15,8 +17,10 @@ import org.springframework.web.bind.support.SessionStatus;
 
 import com.jgm.roujin.domain.CrawlVO;
 import com.jgm.roujin.domain.QaVO;
+import com.jgm.roujin.domain.SalutariumVO;
 import com.jgm.roujin.service.KaigoQAService;
 import com.jgm.roujin.service.SalQAService;
+import com.jgm.roujin.service.SalutariumService;
 import com.jgm.roujin.service.UserService;
 
 import lombok.RequiredArgsConstructor;
@@ -35,6 +39,7 @@ public class RoujinControllerV2 {
 	private final KaigoQAService qaService;
 	private final SalQAService salQAService;
 	private final UserService uService;
+	private final SalutariumService salService;
 	
 	@RequestMapping(value="/kaigoqa", method = RequestMethod.GET)
 	public String kaigoQA(Model model) {
@@ -99,6 +104,29 @@ public class RoujinControllerV2 {
 	
 	@RequestMapping(value="/answerlist", method=RequestMethod.GET)
 	public String answerList() {
+		
+		String username = SecurityContextHolder.getContext().getAuthentication().getName();
+		
+		// seq, name
+		List<Long> salSeqList = salService.selectSeqByUserName(username);
+
+		
+		
+		long p_id = 0;
+		boolean complete = false;
+		
+		// 回答を待っている質問
+		List<QaVO> noAnswerList = salQAService.findBySalSequenceInAndPIdAndComplete(salSeqList, p_id, complete);
+		
+		//回答済み質問
+		//List<QaVO> AnswerCompleteList = salQAService.selectASCompleteAsMapper();
+		
+		
+		log.debug("NOANSWERLIST: " + noAnswerList.toString());
+		//log.debug("ANSWERCOMPLETELIST: " + AnswerCompleteList.toString());
+		
+
+		
 		return "answerlist_page";
 	}
 }

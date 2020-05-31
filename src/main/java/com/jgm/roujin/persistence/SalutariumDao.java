@@ -48,6 +48,9 @@ public interface SalutariumDao {
 	@Delete("DELETE FROM tbl_salutarium WHERE sequence = #{sequence}")
 	int deleteSal(Long sequence);
 
+	@Select("SELECT sequence FROM tbl_salutarium WHERE username = #{username}")
+	List<Long> selectSeqByUserName(String username);
+
 
 	
 

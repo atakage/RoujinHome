@@ -200,4 +200,10 @@ public class SalutariumService {
 	
 	}
 
+	public List<Long> selectSeqByUserName(String username) {
+		// TODO Auto-generated method stub
+		
+		return salDao.selectSeqByUserName(username);
+	}
+
 }

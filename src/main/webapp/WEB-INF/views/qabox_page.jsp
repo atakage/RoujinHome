@@ -44,6 +44,7 @@
     background: white;
     border-radius: 10px;
 	margin-left:3%;
+	padding:10px;
 }
 
 .questionVal:after{

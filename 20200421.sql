@@ -94,3 +94,18 @@ SELECT * FROM hibernate_sequence;
 delete from tbl_qa;
 
 
+
+with recursive CTE AS(
+	SELECT id,p_id,complete,content,name,picture,sal_sequence,username FROM tbl_qa
+    
+    UNION
+    
+    SELECT t.id,t.p_id,t.complete,t.content,t.name,t.picture,t.sal_sequence,t.username FROM tbl_qa t
+    INNER JOIN CTE c ON c.id = t.p_id
+)
+SELECT * FROM CTE;
+
+
+
+INSERT INTO tbl_qa(id,p_id,complete,name,sal_sequence,username) VALUES(25,23,false,'sss',89,'useee');
+INSERT INTO tbl_qa(id,p_id,complete,name,sal_sequence,username) VALUES(26,24,false,'sss2',90,'useee2');

@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 
 import com.jgm.roujin.domain.QaVO;
 import com.jgm.roujin.persistence.SalQADao;
+import com.jgm.roujin.persistence.SalQAMapperDao;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -16,7 +17,7 @@ import lombok.extern.slf4j.Slf4j;
 public class SalQAService {
 	
 	private final SalQADao salQADao;
-	
+	private final SalQAMapperDao salQAMapperDao;
 	
 
 
@@ -51,6 +52,22 @@ public class SalQAService {
 		
 		return salQADao.findBySalSequence(sal_sequence);
 	}
+
+
+
+	public List<QaVO> findBySalSequenceInAndPIdAndComplete(List<Long> salSeqList, long p_id, boolean complete) {
+		// TODO Auto-generated method stub
+		return salQADao.findBySalSequenceInAndPIdAndComplete(salSeqList, p_id, complete);
+	}
+
+
+
+	public List<QaVO> selectASCompleteAsMapper() {
+		// TODO Auto-generated method stub
+		return salQAMapperDao.selectASCompleteAsMapper();
+	}
+
+
 
 	
 }
