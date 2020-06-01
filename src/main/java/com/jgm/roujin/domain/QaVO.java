@@ -33,6 +33,9 @@ public class QaVO {
 	@Column(name="p_id", nullable = true)
 	private long PId;
 	
+	@Column(name="groupId", nullable = false)
+	private long groupId;
+	
 	@Column(name="sal_sequence", nullable = false)
 	private long salSequence;
 	

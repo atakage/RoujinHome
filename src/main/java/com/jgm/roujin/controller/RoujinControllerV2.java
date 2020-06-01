@@ -76,6 +76,7 @@ public class RoujinControllerV2 {
 		
 		qaVO.setPicture(picture);
 		qaVO.setUsername(SecurityContextHolder.getContext().getAuthentication().getName());
+		qaVO.setGroupId(0);
 		model.addAttribute("QAVO", qaVO);
 		return "OK";
 	}
@@ -89,7 +90,10 @@ public class RoujinControllerV2 {
 		
 		
 		
-		 salQAService.input(qaVO);
+		 qaVO = salQAService.input(qaVO);
+		 qaVO.setPId(qaVO.getId());
+		 salQAService.updateGroupId(qaVO);
+		 
 		 sessionStatus.setComplete();
 		 
 		 List<QaVO> qaList = salQAService.findBySeq(qaVO.getSalSequence());
@@ -111,19 +115,18 @@ public class RoujinControllerV2 {
 		List<Long> salSeqList = salService.selectSeqByUserName(username);
 
 		
-		
-		long p_id = 0;
+
 		boolean complete = false;
 		
 		// 回答を待っている質問
-		List<QaVO> noAnswerList = salQAService.findBySalSequenceInAndPIdAndComplete(salSeqList, p_id, complete);
+		List<QaVO> noAnswerList = salQAService.findBySalSequenceInAndComplete(salSeqList,complete);
 		
 		//回答済み質問
-		//List<QaVO> AnswerCompleteList = salQAService.selectASCompleteAsMapper();
+		List<QaVO> AnswerCompleteList = salQAService.findByCompleteQA(salSeqList);
 		
 		
 		log.debug("NOANSWERLIST: " + noAnswerList.toString());
-		//log.debug("ANSWERCOMPLETELIST: " + AnswerCompleteList.toString());
+		log.debug("ANSWERCOMPLETELIST: " + AnswerCompleteList.toString());
 		
 
 		

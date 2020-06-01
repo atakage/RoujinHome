@@ -24,9 +24,9 @@ public class SalQAService {
 
 
 
-	public void input(QaVO qaVO) {
+	public QaVO input(QaVO qaVO) {
 		// TODO Auto-generated method stub
-		salQADao.save(qaVO);
+		return salQADao.save(qaVO);
 		
 		
 	}
@@ -55,9 +55,9 @@ public class SalQAService {
 
 
 
-	public List<QaVO> findBySalSequenceInAndPIdAndComplete(List<Long> salSeqList, long p_id, boolean complete) {
+	public List<QaVO> findBySalSequenceInAndComplete(List<Long> salSeqList, boolean complete) {
 		// TODO Auto-generated method stub
-		return salQADao.findBySalSequenceInAndPIdAndComplete(salSeqList, p_id, complete);
+		return salQADao.findBySalSequenceInAndComplete(salSeqList, complete);
 	}
 
 
@@ -65,6 +65,21 @@ public class SalQAService {
 	public List<QaVO> selectASCompleteAsMapper() {
 		// TODO Auto-generated method stub
 		return salQAMapperDao.selectASCompleteAsMapper();
+	}
+
+
+
+	public void updateGroupId(QaVO qaVO) {
+		// TODO Auto-generated method stub
+		salQADao.save(qaVO);
+	}
+
+
+
+	public List<QaVO> findByCompleteQA(List<Long> salSeqList) {
+		// TODO Auto-generated method stub
+		boolean complete = true;
+		return salQADao.findBySalSequenceInAndCompleteOrderByPIdDescGroupIdAsc(salSeqList ,complete);
 	}
 
 
