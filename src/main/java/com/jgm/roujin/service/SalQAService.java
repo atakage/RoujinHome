@@ -1,6 +1,7 @@
 package com.jgm.roujin.service;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
@@ -84,5 +85,13 @@ public class SalQAService {
 
 
 
+	public QaVO findById(long id) {
+		// TODO Auto-generated method stub
+		Optional<QaVO> qaVO = salQADao.findById(id);
+		return qaVO.get();
+	}
+
+
+	
 	
 }

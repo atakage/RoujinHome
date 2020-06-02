@@ -18,6 +18,7 @@ import org.springframework.web.bind.support.SessionStatus;
 import com.jgm.roujin.domain.CrawlVO;
 import com.jgm.roujin.domain.QaVO;
 import com.jgm.roujin.domain.SalutariumVO;
+import com.jgm.roujin.persistence.SalQADao;
 import com.jgm.roujin.service.KaigoQAService;
 import com.jgm.roujin.service.SalQAService;
 import com.jgm.roujin.service.SalutariumService;
@@ -107,7 +108,7 @@ public class RoujinControllerV2 {
 	
 	
 	@RequestMapping(value="/answerlist", method=RequestMethod.GET)
-	public String answerList() {
+	public String answerList(Model model) {
 		
 		String username = SecurityContextHolder.getContext().getAuthentication().getName();
 		
@@ -128,8 +129,34 @@ public class RoujinControllerV2 {
 		log.debug("NOANSWERLIST: " + noAnswerList.toString());
 		log.debug("ANSWERCOMPLETELIST: " + AnswerCompleteList.toString());
 		
-
+		model.addAttribute("NOANSWERLIST", noAnswerList);
+		model.addAttribute("ANSWERCOMPLETELIST", AnswerCompleteList);
 		
 		return "answerlist_page";
+	}
+	
+	
+	
+	@ResponseBody
+	@RequestMapping(value="/answerinput", method=RequestMethod.POST)
+	public String answerInput(long id, String content) {
+		
+		log.debug("IDCONT: " + id +","+content);
+		
+		QaVO questionVO = salQAService.findById(id);
+		
+		
+		// 質問が削除された場合に備えて
+		if(questionVO != null) {
+			
+			String username = SecurityContextHolder.getContext().getAuthentication().getName();
+			salQAService.input(QaVO.builder().PId(id).groupId(1).salSequence(questionVO.getSalSequence()).name(questionVO.getName()).username(username).content(content).complete(true).build());
+			questionVO.setComplete(true);
+			salQAService.input(questionVO);
+			return "OK";
+		}
+		
+		
+		return "FAIL";
 	}
 }
