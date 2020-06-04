@@ -121,7 +121,6 @@ $(function(){
 
 
 
-
 	$('.deleteBtn').click(function(){
 
 		if(confirm('削除しますか？')){
@@ -147,6 +146,8 @@ $(function(){
 			})
 			}
 		})
+	
+
 
 
 
@@ -156,14 +157,14 @@ $(function(){
 	
 
 	// 6件以上のQAがある時作動
-	var boxIndex = 10
+	var boxIndex = 5
 	var finalIndex
 	$('.displayQA').click(function(){
 
 			alert('BOXINDEX: ' + boxIndex)
 
 			
-			for(var i=boxIndex;i<boxIndex+10;i++){
+			for(var i=boxIndex;i<boxIndex+5;i++){
 
 				// tagの有無検証
 				if( $('.boxIndex'+i).length > 0){
@@ -196,8 +197,8 @@ $(function(){
 	<c:forEach items="${QALIST}" var="QALIST" varStatus="status">
 	
 	
-	<c:if test="${QALIST.groupId eq 0 }">
-	<div class="qaContentBox boxIndex${status.index}" style="<c:if test="${status.index > 9}">display:none</c:if>">
+	
+	<div class="qaContentBox boxIndex${status.index}" style="<c:if test="${status.index > 4}">display:none</c:if>">
 	<input class="boxIndex" type="hidden" value="${status.index}">	
 		<div class="questionBox">
 			<div class="userProfile">
@@ -210,25 +211,13 @@ $(function(){
 		</div>
 
 	</div>
-	</c:if>
 	
-	<c:if test="${QALIST.groupId eq 1 }">
-		<div class="qaContentBox boxIndex${status.index}" style="<c:if test="${status.index > 9}">display:none</c:if>">
-		<input class="boxIndex" type="hidden" value="${status.index}">
-		<div class="answerBox">
-			<div class="userProfile">
-			<img class="img-thumbnail picture" src="${rootPath}/resources/img/kaigo_day_service_van.png"/>
-			<div class="username">${QALIST.username}</div>
-			</div>
-			<div class="answerVal">${QALIST.content}</div>
-		</div>
-
-	</div>
-	</c:if>
+	
+	
 	
 	</c:forEach>
 	
-	<c:if test="${fn:length(QALIST) > 10 }">
+	<c:if test="${fn:length(QALIST) > 5 }">
 	<div class="displayQA">
 	<b>QAさらに表示▼</b>
 	</div>

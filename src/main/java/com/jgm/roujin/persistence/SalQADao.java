@@ -3,6 +3,7 @@ package com.jgm.roujin.persistence;
 import java.util.List;
 
 import javax.persistence.OneToMany;
+import javax.transaction.Transactional;
 
 import org.hibernate.annotations.OrderBy;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -20,8 +21,16 @@ public interface SalQADao extends JpaRepository<QaVO, Long>{
 
 	List<QaVO> findBySalSequenceInAndComplete(List<Long> salSeqList, boolean complete);
 
-
+	List<QaVO> findBySalSequenceAndComplete(Long salSequence, boolean complete);
+	
+	
 	List<QaVO> findBySalSequenceInAndCompleteOrderByPIdDescGroupIdAsc(List<Long> salSeqList , boolean complete);
+	
+	List<QaVO> findBySalSequenceAndCompleteOrderByPIdDescGroupIdAsc(Long salSequence , boolean complete);
+
+	@Transactional
+	void deleteByIdOrPId(long id, long p_id);
+	
 	
 	//List<QaVO> selectASCompleteAsMapper();
 

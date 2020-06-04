@@ -160,6 +160,25 @@
 	margin: 0 auto;
 }
 
+.tab{
+	display: flex;
+    width: 90%;
+    margin: 0 auto;
+    justify-content: flex-end;
+}
+
+.answerTab{
+	background-color: limegreen;
+    color: white;
+}
+
+.answerTab:hover{
+	cursor: pointer;
+}
+
+.noAnswerTab:hover{
+	cursor: pointer;
+}
 </style>
 
 
@@ -174,30 +193,45 @@
 
 $(function(){
 
-/*
-	$('.qaBtn').click(function(){
 
-		$('.modal fade show').css('display','none')
+	$('.noAnswerTab').click(function(){
+
+		var salSequence = ${SALVO.sequence}
 		
 		$.ajax({
 
-			url:"${rootPath}/v2/checklogin", type:'get',
+			url:'${rootPath}/v2/loadnoanswer', data:{salSequence:salSequence}, type:'get',
 			success:function(result){
-					if(result == 'FAIL'){
-							alert('ログインしてください')
-							document.location.replace('${rootPath}/login')
-						}else if(result == 'ONLYUSER'){
-							alert('一般ユーザーのみ登録できます')
-							return false
-							}
+					$('.qaEntranceBox').html(result)
+					$('.noAnswerTab').css('background-color','limegreen').css('color','white')
+					$('.answerTab').css('background-color','white').css('color','black')
 				},error:function(){
-						alert('サーバーエラー')
+					alert('サーバーエラー')
+					}
+			
+			})
+		})
+	
+
+
+	$('.answerTab').click(function(){
+
+		var salSequence = ${SALVO.sequence}
+		
+		$.ajax({
+
+			url:'${rootPath}/v2/loadcompleteqa', data:{salSequence:salSequence}, type:'get',
+			success:function(result){
+					$('.qaEntranceBox').html(result)
+					$('.answerTab').css('background-color','limegreen').css('color','white')
+					$('.noAnswerTab').css('background-color','white').css('color','black')
+				},error:function(){
+					alert('サーバーエラー')
 					}
 			
 			})
 		
 		})
-*/	
 
 
 
@@ -224,6 +258,8 @@ $(function(){
 						success:function(result){
 							$('.qaEntranceBox').html(result)
 							$('.modal').modal('hide')
+							$('.noAnswerTab').css('background-color','limegreen').css('color','white')
+							$('.answerTab').css('background-color','white').css('color','black')
 							},error:function(){
 								alert('サーバーエラー')
 								}
@@ -376,7 +412,10 @@ $(function(){
 	
 	<div class="qaBoxDiv">
 		<div class="qaTitle">Q&A</div>
-		
+		<div class="tab">
+		<div class="answerTab">回答済み</div><b>|</b>
+		<div class="noAnswerTab">未回答</div>
+		</div>
 		<div class="qaEntranceBox">
 		  <%@ include file="/WEB-INF/views/qabox_page.jsp" %>  
 		 </div>

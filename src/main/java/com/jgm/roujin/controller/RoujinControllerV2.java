@@ -97,13 +97,14 @@ public class RoujinControllerV2 {
 		 
 		 sessionStatus.setComplete();
 		 
-		 List<QaVO> qaList = salQAService.findBySeq(qaVO.getSalSequence());
-		 log.debug("QALIST: "+ qaList.toString());
+		 boolean complete = false;
+		 List<QaVO> noAsList = salQAService.findBySalSequenceAndComplete(qaVO.getSalSequence(),complete);
+
 		 
 		
-		 model.addAttribute("QALIST",qaList);
+		 model.addAttribute("QALIST",noAsList);
 		
-		return "qabox_page";
+		return "noanswerbox_page";
 	}
 	
 	
@@ -158,5 +159,40 @@ public class RoujinControllerV2 {
 		
 		
 		return "FAIL";
+	}
+	
+	
+	@RequestMapping(value="/loadcompleteqa", method = RequestMethod.GET)
+	public String loadCompleteQA(long salSequence, Model model) {
+		
+		boolean complete = true;
+		List<QaVO> answerList = salQAService.findBySalSequenceAndCompleteOrderByPIdDescGroupIdAsc(salSequence,complete);
+		model.addAttribute("QALIST",answerList);
+		
+		return "qabox_page";
+	}
+	
+	@RequestMapping(value="/loadnoanswer", method = RequestMethod.GET)
+	public String loadNoAnswer(long salSequence, Model model) {
+		
+		boolean complete = false;
+		List<QaVO> noAsList = salQAService.findBySalSequenceAndComplete(salSequence,complete);
+		model.addAttribute("QALIST",noAsList);
+		
+		return "noanswerbox_page";
+	}
+	
+	@ResponseBody
+	@RequestMapping(value="/deleteqa", method=RequestMethod.POST)
+	public String deleteQA(long id) {
+		
+		
+		
+		QaVO qaVO = salQAService.findById(id);
+		if(!SecurityContextHolder.getContext().getAuthentication().getName().equals(qaVO.getUsername())) {
+			return "NOTMATCH";
+		}
+		salQAService.deleteByIdOrPId(id,id);
+		return "OK";
 	}
 }

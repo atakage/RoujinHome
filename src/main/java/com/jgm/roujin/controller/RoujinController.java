@@ -71,8 +71,10 @@ public class RoujinController {
 		
 		List<FileVO> fileList = fileService.findBySeq(Long.valueOf(sequence));
 		
-		List<QaVO> qaList = salQAService.findBySeq(Long.valueOf(sequence));
-
+		boolean complete = true;
+		List<QaVO> answerList = salQAService.findBySalSequenceAndCompleteOrderByPIdDescGroupIdAsc(Long.valueOf(sequence),complete);
+		
+		log.debug("ASLIST: " + answerList.toString());
 		 
 		
 		
@@ -80,7 +82,7 @@ public class RoujinController {
 		
 		model.addAttribute("SALVO", salVO);
 		model.addAttribute("FILELIST", fileList);
-		model.addAttribute("QALIST",qaList);
+		model.addAttribute("QALIST",answerList);
 		
 		return "view";
 	}

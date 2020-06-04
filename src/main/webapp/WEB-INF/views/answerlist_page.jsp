@@ -5,17 +5,21 @@
     
 <%@ include file="/WEB-INF/views/include/include-headernav.jsp" %>
 
-
+<script
+  src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"
+  integrity="sha256-VazP97ZCwtekAsvgPBSUwPFKdrwD3unUfSGVYrahUqU="
+  crossorigin="anonymous"></script>
 <style>
 
 .answerListAllBoxDiv{
 
 	width: 70%;
     margin: 0 auto;
-    margin-top: 10%;
+    margin-top: 5%;
 }
 
 .title{
+	margin-top:10%;
 	background-color: limegreen;
 	color: white;
 	font-size: x-large;
@@ -42,13 +46,29 @@
 	justify-content: space-between;
 }
 
+.completeANameAndUNameDiv{
+		display: flex;
+	justify-content: space-between;
+}
+
 .noASContent{
 	text-align: center;
     padding: 50px;
     font-size: large;
 }
 
+.completeASContent{
+	text-align: center;
+    padding: 50px;
+    font-size: large;
+}
+
 .qBox{
+	padding: 10px;
+	margin-top:5%;
+}
+
+.qBoxCom{
 	padding: 10px;
 	margin-top:5%;
 }
@@ -62,11 +82,55 @@
     margin-top:3%;
 }
 
+.aBox:after{
+		content: "";
+    display: block;
+    width: 70%;
+    border-bottom: 2px solid limegreen;
+    margin:0 auto;
+    margin-top:3%;
+}
+
 .btnDiv{
 	display: flex;
     justify-content: space-between;
 }
-	
+
+.aPrefix{
+	font-size: x-large;
+    font-weight: bold;
+    color: #DC3545;
+    padding: 10px;
+}
+
+.answerContent{
+	align-self: center;
+    font-size: large;
+    font-weight: bold;
+}
+
+.scrollSpyMenuDiv{
+	display: flex;
+    right: 60px;
+    top: 550px;
+    position: absolute;
+}
+
+.quickBtn{
+	background-color: limegreen;
+    color: white;
+    font-weight: bold;
+    padding: 5px;
+    border-radius: 10px;
+    font-size: x-large;
+    margin:5px;
+    
+}
+
+.quickBtn:hover{
+	cursor: pointer;
+	text-decoration: none;
+}	
 
 </style>
 
@@ -75,6 +139,19 @@
 <script>
 $(function(){
 
+
+	
+	var floatPosition = parseInt($('.scrollSpyMenuDiv').css('top'))
+	$(window).scroll(function(){
+
+		var scrollTop = $(window).scrollTop()
+		var newPosition = scrollTop+floatPosition+'px'
+		$('.scrollSpyMenuDiv').stop().animate({'top':newPosition},{'duration':500, 'easing':'easeInOutCubic'})
+		}).scroll()
+
+
+
+	
 
 	$('.answerBtn').click(function(){
 
@@ -118,13 +195,22 @@ $(function(){
 </script>
 
 
-<div>
+<div data-spy="scroll">
 
+
+<div class="scrollSpyMenuDiv">
+
+<div class="quickNoAs"><a class="quickBtn" href="#answerWaitBox">待</a></div>
+<div class="quickComplete"><a class="quickBtn" href="#answerComBox">完</a></div>
+
+
+</div>
 
 
 <div class="answerListAllBoxDiv">
 
-	<div class="answerWaitBox">
+
+	<div id="answerWaitBox" class="answerWaitBox">
 		<div class="title">回答を待っている質問</div>
 		<div class="borderDiv">
 		
@@ -147,6 +233,57 @@ $(function(){
 					<button class="btn btn-danger answerBtn" type="button">回答する</button>
 					</div>
 				</div>
+			</c:forEach>
+		</c:if>
+		</div>
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<div id="answerComBox" class="answerWaitBox">
+		<div class="title">回答済み質問</div>
+		<div class="borderDiv">
+		
+		<c:if test="${empty ANSWERCOMPLETELIST }">
+			回答済み質問がありません
+		</c:if>
+		<c:if test="${not empty ANSWERCOMPLETELIST }">
+			<c:forEach items="${ ANSWERCOMPLETELIST}" var="ANSWERCOMPLETELIST">
+				
+				<c:if test="${ANSWERCOMPLETELIST.groupId eq 0}">
+				<div class="qBoxCom">
+					
+					
+					<div class="completeANameAndUNameDiv">
+					<div class="completeASName">施設名:<b>${ANSWERCOMPLETELIST.name}</b></div>
+					<div class="completeASUserName">質問者:<b>${ANSWERCOMPLETELIST.username}</b></div>
+					</div>
+					<div class="completeASContent"><b>${ANSWERCOMPLETELIST.content}</b></div>
+					
+					
+					
+
+				</div>
+				</c:if>
+				
+				
+				<c:if test="${ANSWERCOMPLETELIST.groupId eq 1}">
+				<div class="aBox">
+					
+					<div style="display:flex;">
+					<div class="aPrefix">A.</div>
+					<div class="answerContent">${ANSWERCOMPLETELIST.content }</div>
+					</div>
+				</div>
+				</c:if>
+				
 			</c:forEach>
 		</c:if>
 		</div>

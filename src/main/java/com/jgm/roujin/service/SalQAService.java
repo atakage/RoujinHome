@@ -3,7 +3,10 @@ package com.jgm.roujin.service;
 import java.util.List;
 import java.util.Optional;
 
+
+
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.jgm.roujin.domain.QaVO;
 import com.jgm.roujin.persistence.SalQADao;
@@ -89,6 +92,27 @@ public class SalQAService {
 		// TODO Auto-generated method stub
 		Optional<QaVO> qaVO = salQADao.findById(id);
 		return qaVO.get();
+	}
+
+
+
+	public List<QaVO> findBySalSequenceAndComplete(Long salSequence, boolean complete) {
+		// TODO Auto-generated method stub
+		return salQADao.findBySalSequenceAndComplete(salSequence, complete);
+	}
+
+
+
+	public List<QaVO> findBySalSequenceAndCompleteOrderByPIdDescGroupIdAsc(Long salSequence, boolean complete) {
+		// TODO Auto-generated method stub
+		return salQADao.findBySalSequenceAndCompleteOrderByPIdDescGroupIdAsc(salSequence, complete);
+	}
+
+
+	
+	public void deleteByIdOrPId(long id, long p_id) {
+		// TODO Auto-generated method stub
+		salQADao.deleteByIdOrPId(id, p_id);
 	}
 
 
