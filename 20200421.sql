@@ -95,6 +95,7 @@ delete from tbl_qa;
 
 
 
+
 with recursive CTE AS(
 	SELECT id,p_id,complete,content,name,picture,sal_sequence,username FROM tbl_qa
     
@@ -106,6 +107,4 @@ with recursive CTE AS(
 SELECT * FROM CTE;
 
 
-
-INSERT INTO tbl_qa(id,p_id,complete,name,sal_sequence,username) VALUES(25,23,false,'sss',89,'useee');
-INSERT INTO tbl_qa(id,p_id,complete,name,sal_sequence,username) VALUES(26,24,false,'sss2',90,'useee2');
+SELECT * FROM tbl_qa WHERE complete = true order by p_id desc, groupId asc;
